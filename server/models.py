@@ -756,11 +756,9 @@ def update_events_calendar():
         x = Update.objects.create()
         x.save()
         x = Update.objects.all()
-    if x[0].last_update < datetime.datetime.now(local_tz) - datetime.timedelta(days=1):
+    if datetime.datetime.now(local_tz) - x[0].last_update > datetime.timedelta(days=1):
         purge_old_events()
         services = Services.objects.all()
-        events = []
-        current_events = Events.objects.all().prefetch_all()
 
         for service in services:
             for date_offset in range(31):
@@ -782,7 +780,7 @@ def update_events_calendar():
                             )
                         )
 
-        Events.objects.bulk_create(events)
+        Events.objects.bulk_create(events, ignore_conflicts=True)
         x = Update.objects.all()
         x[0].last_update = datetime.datetime.now(tz=local_tz)
 
