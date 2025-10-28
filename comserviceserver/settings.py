@@ -19,7 +19,9 @@ SECRET_KEY = os.environ.get('community_services_server_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.0.2.2',
+                 '127.0.0.1',
+                 ]
 
 
 # Application definition
@@ -134,3 +136,48 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # Don't disable existing loggers
+
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+            'level': 'DEBUG',  # Set the logging level for the console
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_app.log'),  # Adjust the filename accordingly
+            'formatter': 'verbose',
+            'level': 'INFO',  # Set the logging level for the file
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',  # Set the logging level for Django
+            'propagate': True,  # Propagate to parent loggers
+        },
+        'myapp': {  # Custom logger for your application
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',  # Set the logging level for your app
+            'propagate': False,
+        },
+    },
+}

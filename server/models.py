@@ -1,6 +1,8 @@
 import copy
 import datetime, calendar
+import logging
 
+import pytz
 from django.db import models, DataError
 
 # Create your models here.
@@ -50,6 +52,11 @@ class Events(models.Model):
 
 ################################################
 # Model function: Dynamic populate of database with service data and events from provided source data
+
+class Update(models.Model):
+    last_update = models.DateTimeField(default=datetime.date(1900,1,1))
+
+local_tz = pytz.timezone('America/Chicago')
 
 def create_initial_data(apps=None, schema_editor=None):
     print('THIS FUNCTION HAS BEEN INITIATED')
@@ -282,13 +289,13 @@ def create_initial_data(apps=None, schema_editor=None):
                     services_list.append(dinner(i,
                                                 datetime.time(16, minute=30),
                                                 datetime.time(hour=18, minute=00)
-                                                )
+                                                ),
                                          )
-                services_list.append(lunch(i,
-                                           datetime.time(12,0),
-                                           datetime.time(13, 0)
-                                           )
-                                     )
+                # services_list.append(lunch(i,
+                #                            datetime.time(12,0),
+                #                            datetime.time(13, 0)
+                #                            )
+                #                      )
 
         bishop_sullivan_one_cafe_lunch_dinner(services)
 
@@ -743,32 +750,41 @@ def update_events_calendar():
     Uses Services as listed in the Services table to populate the Events table with event dates and times,
     will not create duplicates due to Events.Meta.unique_together() constraints.
     """
-    purge_old_events()
-    services = Services.objects.all()
-    events = []
 
-    for service in services:
-        for date_offset in range(31):
-            working_date = datetime.datetime.now() + datetime.timedelta(days=date_offset)
+    x = Update.objects.all()
+    if not x:
+        x = Update.objects.create()
+        x.save()
+        x = Update.objects.all()
+    if x[0].last_update < datetime.datetime.now(local_tz) - datetime.timedelta(days=1):
+        purge_old_events()
+        services = Services.objects.all()
+        events = []
+        current_events = Events.objects.all().prefetch_all()
 
-            # Check if the service is available on this day
-            if service.day == working_date.weekday():
-                # Assuming service.end_time stores the end time for the specific service
-                # Create a datetime for the end of this specific day
-                end_time = datetime.datetime.combine(working_date.date(), service.end_time)
+        for service in services:
+            for date_offset in range(31):
+                working_date = (datetime.datetime.combine(datetime.date.today(), service.start_time)
+                                + datetime.timedelta(days=date_offset))
 
-                # Add only if the end time is in the future
-                if end_time > datetime.datetime.now():
-                    events.append(
-                        Events(
-                            service_id=service,
-                            date=working_date,
-                            end=end_time
+                # Check if the service is available on this day
+                if service.day == working_date.weekday():
+                    end_time = datetime.datetime.combine(working_date, service.end_time)
+                    logging.debug(f'server.models.py - update_events_calendar() service start and end datetime calucations: {working_date.isoformat(), end_time.isoformat()}')
+
+                    # Add only if the end time is in the future
+                    if end_time > datetime.datetime.now():
+                        events.append(
+                            Events(
+                                service_id=service,
+                                date=local_tz.localize(working_date),
+                                end=local_tz.localize(end_time)
+                            )
                         )
-                    )
 
-    Events.objects.bulk_create(events)
-
+        Events.objects.bulk_create(events)
+        x = Update.objects.all()
+        x[0].last_update = datetime.datetime.now(tz=local_tz)
 
 def purge_old_events():
     """
