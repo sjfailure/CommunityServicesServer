@@ -26,6 +26,6 @@ def main_data(request):
                          ).all()
     json_data = {'services': {}}
     for entry in data:
-        print(f'data for {entry.id} processed')
+        print(f'data for {entry.id} processed, start and end: ')
         json_data['services'][entry.id] = helpers.event_data_packer(entry)
     return JsonResponse(json_data)

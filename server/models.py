@@ -759,6 +759,7 @@ def update_events_calendar():
     if datetime.datetime.now(local_tz) - x[0].last_update > datetime.timedelta(days=1):
         purge_old_events()
         services = Services.objects.all()
+        events = []
 
         for service in services:
             for date_offset in range(31):

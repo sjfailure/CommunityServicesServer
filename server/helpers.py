@@ -27,6 +27,6 @@ def event_data_packer(entry):
         'address': get_service_location(entry),
         'phone': get_provider_phone_number(entry),
         'start_time': entry.date.strftime('%Y-%m-%d %H:%M:%S'),
-        'end_time': entry.service_id.end_time.strftime('%Y-%m-%d %H:%M:%S'),
+        'end_time': entry.end.strftime('%Y-%m-%d %H:%M:%S'),
         'audience': get_service_target_audience(entry)
     }

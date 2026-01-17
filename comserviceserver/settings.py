@@ -54,6 +54,7 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         ...
     ),
+    # TODO Implement Oauth finally
 }
 
 ROOT_URLCONF = 'comserviceserver.urls'
@@ -92,6 +93,8 @@ DATABASES = {
                 'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
             },
         },
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': 'defaultdb',
     }
 }
 
