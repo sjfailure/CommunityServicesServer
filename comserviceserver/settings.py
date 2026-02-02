@@ -50,11 +50,11 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        ...
-    ),
-    # TODO Implement Oauth finally
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+#         ...
+#     ),
+#     # TODO Implement Oauth finally
 }
 
 ROOT_URLCONF = 'comserviceserver.urls'
@@ -174,12 +174,12 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],
-            'level': 'DEBUG',  # Set the logging level for Django
+            'level': 'WARN',  # Set the logging level for Django
             'propagate': True,  # Propagate to parent loggers
         },
         'myapp': {  # Custom logger for your application
             'handlers': ['console', 'file'],
-            'level': 'DEBUG',  # Set the logging level for your app
+            'level': 'INFO',  # Set the logging level for your app
             'propagate': False,
         },
     },

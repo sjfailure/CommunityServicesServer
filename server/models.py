@@ -7,43 +7,45 @@ from django.db import models, DataError
 
 # Create your models here.
 
-class ServicesCategories(models.Model):
+
+class ServiceCategory(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.TextField(null=False)
 
 class ServiceType(models.Model):
     id = models.AutoField(primary_key=True)
     type = models.CharField(max_length=255, unique=True)
-    category = models.ForeignKey(ServicesCategories, default=1, on_delete=models.SET_DEFAULT)
+    category = models.ForeignKey(ServiceCategory, default=1, on_delete=models.SET_DEFAULT)
 
-class Providers(models.Model):
+class Provider(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(default='No Provider')
     address = models.TextField(null=True)
     phone = models.TextField(null=True)
+    email = models.TextField(null=True)
 
 class Audience(models.Model):
     id = models.AutoField(primary_key=True)
     audience = models.TextField(null=False)
 
-class Services(models.Model):
+class Service(models.Model):
     id = models.AutoField(primary_key=True)
-    category = models.ForeignKey(ServicesCategories, default=1, on_delete=models.SET_DEFAULT)
+    category = models.ForeignKey(ServiceCategory, default=1, on_delete=models.SET_DEFAULT)
     type = models.ForeignKey(ServiceType, default=1, on_delete=models.SET_DEFAULT)
     day = models.IntegerField(default=0) # 0-6 (M-Sun)
     start_time = models.TimeField(default=datetime.time(0)) # Presents as a datetime.time object in Python???
     end_time = models.TimeField(default=datetime.time(0))
     periodic = models.IntegerField(default=0) # Special field for events that occur periodically,i.e. every 3rd Sat., int indicates nth day of the month
-    provider = models.ForeignKey(Providers, default=1, on_delete=models.SET_DEFAULT)
+    provider = models.ForeignKey(Provider, default=1, on_delete=models.SET_DEFAULT)
     note = models.TextField(default='')
     audience = models.ForeignKey(Audience, default=1, on_delete=models.SET_DEFAULT)
 
     class Meta:
         unique_together = (('provider', 'category', 'type', 'day', 'periodic', 'start_time'),)
 
-class Events(models.Model):
+class Event(models.Model):
     id = models.AutoField(primary_key=True)
-    service_id = models.ForeignKey(Services, on_delete=models.CASCADE)
+    service_id = models.ForeignKey(Service, on_delete=models.CASCADE)
     date = models.DateTimeField(default=datetime.date(1900,1,1))
     end = models.DateTimeField(default=datetime.date(1900,1,1))
 
@@ -61,7 +63,7 @@ local_tz = pytz.timezone('America/Chicago')
 def create_initial_data(apps=None, schema_editor=None):
     print('THIS FUNCTION HAS BEEN INITIATED')
     def pre_populate():
-        default_provider = Providers(
+        default_provider = Provider(
             name='No Provider',
         )
         default_provider.save() # default for MySQL
@@ -143,13 +145,13 @@ def create_initial_data(apps=None, schema_editor=None):
                      }
         provider_key_reference = copy.deepcopy(providers)
         for provider in providers:
-            # print(f'creating Providers({provider}, ')
-            if not Providers.objects.filter(
+            # print(f'creating Provider({provider}, ')
+            if not Provider.objects.filter(
                 name=provider,
                 address=providers[provider][0],
                 phone=providers[provider][1]
             ).exists():
-                x = Providers.objects.create(
+                x = Provider.objects.create(
                     name=provider,
                     address=providers[provider][0],
                     phone=providers[provider][1])
@@ -157,7 +159,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 provider_key_reference[provider].append(x)
             else:
                 provider_key_reference[provider].append(
-                    Providers.objects.get(
+                    Provider.objects.get(
                         name=provider,
                         address=providers[provider][0],
                         phone=providers[provider][1]
@@ -167,14 +169,14 @@ def create_initial_data(apps=None, schema_editor=None):
         service_categories = ['Food', 'Health', 'General', 'Shelter', 'Hygiene']
         service_categories_key_reference = {}
         for service_cat in service_categories:
-            if not ServicesCategories.objects.filter(
+            if not ServiceCategory.objects.filter(
                 category=service_cat
             ).exists():
-                x = ServicesCategories.objects.create(category=service_cat)
+                x = ServiceCategory.objects.create(category=service_cat)
                 x.save()
                 service_categories_key_reference[service_cat] = x
             else:
-                service_categories_key_reference[service_cat] = ServicesCategories.objects.get(category=service_cat)
+                service_categories_key_reference[service_cat] = ServiceCategory.objects.get(category=service_cat)
 
         print('START ServiceTypes')
         service_types = ['Breakfast',
@@ -248,7 +250,7 @@ def create_initial_data(apps=None, schema_editor=None):
         # Times in 24:00 format
         # Skip periodic or none-weekly services, to add with specific algorithms.
 
-        services = [] # list of Services instances to instantiate through bulk_create().
+        services = [] # list of Service instances to instantiate through bulk_create().
 
 
         def bishop_sullivan_one_cafe_lunch_dinner(services_list, ):
@@ -259,7 +261,7 @@ def create_initial_data(apps=None, schema_editor=None):
             audience = audience_reference_map['Everyone']
 
             def lunch(day, start_time, end_time, note=''):
-                return Services(
+                return Service(
                     provider=provider_key_reference[provider][2],
                     category=category,
                     type=type_lunch,
@@ -272,7 +274,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 )
 
             def dinner(day, start_time, end_time, note=''):
-                return Services(
+                return Service(
                     provider=provider_key_reference[provider][2],
                     category=category,
                     type=type_dinner,
@@ -300,7 +302,7 @@ def create_initial_data(apps=None, schema_editor=None):
         bishop_sullivan_one_cafe_lunch_dinner(services)
 
         def family_promise_northland(service_list):
-            service_list.append(Services(
+            service_list.append(Service(
                 category=service_categories_key_reference["Food"],
                 type=service_type_map['Lunch']['instance'],
                 day=3,
@@ -311,7 +313,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 note='1st, 3rd, & 5th Thursday',
                 audience=audience_reference_map['Everyone']
             ))
-            service_list.append(Services(
+            service_list.append(Service(
                 category=service_categories_key_reference["Food"],
                 type=service_type_map['Lunch']['instance'],
                 day=3,
@@ -322,7 +324,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 note='1st, 3rd, & 5th Thursday',
                 audience=audience_reference_map['Everyone']
             ))
-            service_list.append(Services(
+            service_list.append(Service(
                 category=service_categories_key_reference["Food"],
                 type=service_type_map['Lunch']['instance'],
                 day=3,
@@ -337,7 +339,7 @@ def create_initial_data(apps=None, schema_editor=None):
         family_promise_northland(services)
 
         def independence_boulevard_christian_church(service_list):
-            service_list.append(Services(
+            service_list.append(Service(
                 category=service_categories_key_reference["Food"],
                 type=service_type_map['Dinner']['instance'],
                 day=0,
@@ -348,7 +350,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 note='Dinner/toiletries/clothes (provided by Micha Ministries)',
                 audience=audience_reference_map['Everyone']
             ))
-            service_list.append(Services(
+            service_list.append(Service(
                 category=service_categories_key_reference["Hygiene"],
                 type=service_type_map['Toiletries']['instance'],
                 day=0,
@@ -359,7 +361,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 note='Dinner/toiletries/clothes',
                 audience=audience_reference_map['Everyone']
             ))
-            service_list.append(Services(
+            service_list.append(Service(
                 category=service_categories_key_reference["Hygiene"],
                 type=service_type_map['Clothes']['instance'],
                 day=0,
@@ -376,7 +378,7 @@ def create_initial_data(apps=None, schema_editor=None):
         def nourishkcs_kc_community_kitchen(service_list):
             for i in range(0, 5):
                 service_list.append(
-                    Services(
+                    Service(
                         provider=provider_key_reference['NourishKC\'s KC Community Kitchen'][2],
                         category=service_categories_key_reference['Food'],
                         type=service_type_map['Lunch']['instance'],
@@ -393,7 +395,7 @@ def create_initial_data(apps=None, schema_editor=None):
 
         def metropolitan_lutheran_ministry(service_list):
             for i in range(0, 5):
-                service_list.append(Services(
+                service_list.append(Service(
                     provider=provider_key_reference['Metropolitan Lutheran Ministry'][2],
                     category=service_categories_key_reference['Food'],
                     type=service_type_map['Lunch']['instance'],
@@ -404,7 +406,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     note='Food pantry & sack lunches',
                     periodic=0,
                 ))
-                service_list.append(Services(
+                service_list.append(Service(
                     provider=provider_key_reference['Metropolitan Lutheran Ministry'][2],
                     category=service_categories_key_reference['Food'],
                     type=service_type_map['Pantry']['instance'],
@@ -420,7 +422,7 @@ def create_initial_data(apps=None, schema_editor=None):
 
         def morining_glory_minstries(service_list):
             for i in range(0, 5):
-                service_list.append(Services(
+                service_list.append(Service(
                     provider=provider_key_reference['Morning Glory Ministries: 9th St.'][2],
                     category=service_categories_key_reference['Food'],
                     type=service_type_map['Breakfast']['instance'],
@@ -446,7 +448,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     'referrals before/after breakfast & lunch, housing referrals, case management M&W'
             # Hygiene supplies, w/f
             service_list.append(
-                Services(
+                Service(
                     provider=provider_key_reference[provider][2],
                     category=service_categories_key_reference['Hygiene'],
                     type=service_type_map['Toiletries']['instance'],
@@ -459,7 +461,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 )
             )
             service_list.append(
-                Services(
+                Service(
                     provider=provider_key_reference[provider][2],
                     category=service_categories_key_reference['Hygiene'],
                     type=service_type_map['Toiletries']['instance'],
@@ -473,7 +475,7 @@ def create_initial_data(apps=None, schema_editor=None):
             )
             for i in range(5):
                 service_list.append(
-                    Services(
+                    Service(
                         provider=provider_key_reference[provider][2],
                         category=service_categories_key_reference['Food'],
                         type=service_type_map['Breakfast']['instance'],
@@ -486,7 +488,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     )
                 )
                 service_list.append(
-                    Services(
+                    Service(
                         provider=provider_key_reference[provider][2],
                         category=service_categories_key_reference['Food'],
                         type=service_type_map['Lunch']['instance'],
@@ -499,7 +501,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     )
                 )
                 service_list.append(
-                    Services(
+                    Service(
                         provider=provider_key_reference[provider][2],
                         category=service_categories_key_reference['Shelter'],
                         type=service_type_map['Housing referral']['instance'],
@@ -512,7 +514,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     )
                 )
                 service_list.append(
-                    Services(
+                    Service(
                         provider=provider_key_reference[provider][2],
                         category=service_categories_key_reference['General'],
                         type=service_type_map['General']['instance'],
@@ -529,7 +531,7 @@ def create_initial_data(apps=None, schema_editor=None):
 
         def redemptorist_center(service_list):
             for i in range(5):
-                service_list.append(Services(
+                service_list.append(Service(
                     provider=provider_key_reference['Redemptorist Center'][2],
                     category=service_categories_key_reference['Food'],
                     type=service_type_map['Lunch']['instance'],
@@ -541,7 +543,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     periodic=0,
                 ))
                 if i != 4:
-                    service_list.append(Services(
+                    service_list.append(Service(
                         provider=provider_key_reference['Redemptorist Center'][2],
                         category=service_categories_key_reference['Food'],
                         type=service_type_map['Pantry']['instance'],
@@ -558,7 +560,7 @@ def create_initial_data(apps=None, schema_editor=None):
         def salvation_army(service_list):
             provider = provider_key_reference['The Salvation Army'][2]
             for i in range(4): # monday thru thursday
-                service_list.append(Services(
+                service_list.append(Service(
                     category=service_categories_key_reference['Food'],
                     type=service_type_map['Lunch']['instance'],
                     day=i,
@@ -580,7 +582,7 @@ def create_initial_data(apps=None, schema_editor=None):
             provider = provider_key_reference['Trinity United Methodist Church'][2]
             for service in [lunch, pantry, toiletries, laundry]: # Lunch, Pantry, Toiletries, and Laundry, M 12-1
                 service_list.append(
-                    Services(
+                    Service(
                         category=service['category'],
                         type=service['instance'],
                         day=0,
@@ -594,7 +596,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 )
             # lunch only, Th 11:30-12:30
             service_list.append(
-                Services(
+                Service(
                     category=lunch['category'],
                     type=lunch['instance'],
                     day=5,
@@ -614,7 +616,7 @@ def create_initial_data(apps=None, schema_editor=None):
             audience = audience_reference_map["Everyone"]
             for i in range(5):
                 service_list.append(
-                    Services(
+                    Service(
                         category=service_type_map["Breakfast"]['category'],
                         type = service_type_map["Breakfast"]['instance'],
                         day=i,
@@ -627,7 +629,7 @@ def create_initial_data(apps=None, schema_editor=None):
                     )
                 )
                 service_list.append(
-                    Services(
+                    Service(
                         category=service_type_map["Lunch"]['category'],
                         type=service_type_map["Lunch"]['instance'],
                         day=i,
@@ -650,7 +652,7 @@ def create_initial_data(apps=None, schema_editor=None):
             category = lambda x: x['category']
             audience = audience_reference_map['Everyone']
             service_list.append(
-                Services(
+                Service(
                     provider=provider,
                     category=category(breakfast),
                     type=breakfast['instance'],
@@ -663,7 +665,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 )
             )
             service_list.append(
-                Services(
+                Service(
                     provider=provider,
                     category=category(pantry),
                     type=pantry['instance'],
@@ -676,7 +678,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 )
             )
             service_list.append(
-                Services(
+                Service(
                     provider=provider,
                     category=category(dinner),
                     type=dinner['instance'],
@@ -693,7 +695,7 @@ def create_initial_data(apps=None, schema_editor=None):
 
         def washington_square_park(service_list):
             service_list.append(
-                Services(
+                Service(
                     category=service_categories_key_reference["Food"],
                     type=service_type_map['Dinner']['instance'],
                     day=2,
@@ -711,7 +713,7 @@ def create_initial_data(apps=None, schema_editor=None):
         def westport_presbyterian_church(service_list):
             provider = provider_key_reference['Westport Presbyterian Church'][2]
             service_list.append(
-                Services(
+                Service(
                     category=service_categories_key_reference["Food"],
                     type=service_type_map['Breakfast']['instance'],
                     day=6,
@@ -724,7 +726,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 )
             )
             service_list.append(
-                Services(
+                Service(
                     category=service_categories_key_reference["Food"],
                     type=service_type_map['Lunch']['instance'],
                     day=2,
@@ -741,24 +743,25 @@ def create_initial_data(apps=None, schema_editor=None):
 
         for serv in services:
             print(f'checking service {serv.provider.id}-{serv.category}-{serv.type}-{serv.day}-{serv.periodic}-{str(serv.start_time)}')
-        Services.objects.bulk_create(services)
+        Service.objects.bulk_create(services)
 
     pre_populate()
 
 def update_events_calendar():
     """
-    Uses Services as listed in the Services table to populate the Events table with event dates and times,
-    will not create duplicates due to Events.Meta.unique_together() constraints.
+    Uses Service as listed in the Service table to populate the Event table with event dates and times,
+    will not create duplicates due to Event.Meta.unique_together() constraints.
     """
 
+    purge_old_events()
+    logging.debug(f"update_events_calendar(), purge_old_events() has run, oldest event: {Event.objects.earliest('end')}")
     x = Update.objects.all()
     if not x:
         x = Update.objects.create()
         x.save()
         x = Update.objects.all()
     if datetime.datetime.now(local_tz) - x[0].last_update > datetime.timedelta(days=1):
-        purge_old_events()
-        services = Services.objects.all()
+        services = Service.objects.all()
         events = []
 
         for service in services:
@@ -774,19 +777,19 @@ def update_events_calendar():
                     # Add only if the end time is in the future
                     if end_time > datetime.datetime.now():
                         events.append(
-                            Events(
+                            Event(
                                 service_id=service,
                                 date=local_tz.localize(working_date),
                                 end=local_tz.localize(end_time)
                             )
                         )
 
-        Events.objects.bulk_create(events, ignore_conflicts=True)
+        Event.objects.bulk_create(events, ignore_conflicts=True)
         x = Update.objects.all()
         x[0].last_update = datetime.datetime.now(tz=local_tz)
 
 def purge_old_events():
     """
-    Purges events from the Events table if their end_time and date has passed.
+    Purges events from the Event table if their end_time and date has passed.
     """
-    Events.objects.filter(end__lt=datetime.datetime.now()).delete()
+    Event.objects.filter(end__lt=datetime.datetime.now()).delete()
