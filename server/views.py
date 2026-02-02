@@ -1,12 +1,16 @@
 import time
 
+from django.conf import settings
 from django.db.models.functions import JSONObject
 from django.http import JsonResponse
 from django.shortcuts import render
 
+
+
+
 import server.models
 from server import helpers
-from server.models import Events
+from server.models import Event
 
 
 # Create your views here.
@@ -16,8 +20,9 @@ from server.models import Events
 # TODO App connectors needed to continue API development
 
 def main_data(request):
+
     server.models.update_events_calendar()
-    data = Events.objects.select_related(
+    data = Event.objects.select_related(
                         'service_id',                 # Get related Services
                         'service_id__type',          # Get related ServiceType
                         'service_id__provider',       # Get related Providers
@@ -29,3 +34,7 @@ def main_data(request):
         print(f'data for {entry.id} processed, start and end: ')
         json_data['services'][entry.id] = helpers.event_data_packer(entry)
     return JsonResponse(json_data)
+
+def detail_view(request, event_id):
+    event_data = {"event_data": helpers.pull_event_detail_view(event_id)}
+    return JsonResponse(event_data)
