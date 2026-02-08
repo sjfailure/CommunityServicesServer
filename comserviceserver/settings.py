@@ -82,19 +82,19 @@ WSGI_APPLICATION = 'comserviceserver.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'defaultdb',
+    #     'USER': os.environ.get('community_services_server_USER'),
+    #     'PASSWORD': os.environ.get('community_services_server_PASSWORD'),
+    #     'HOST': os.environ.get('community_services_server_HOST'),
+    #     'PORT': '13106',
+    #     'OPTIONS': {
+    #         'ssl': {
+    #             'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
+    #         },
+    #     },
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'defaultdb',
-        'USER': os.environ.get('community_services_server_USER'),
-        'PASSWORD': os.environ.get('community_services_server_PASSWORD'),
-        'HOST': os.environ.get('community_services_server_HOST'),
-        'PORT': '13106',
-        'OPTIONS': {
-            'ssl': {
-                'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
-            },
-        },
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': 'defaultdb',
     }
 }
 

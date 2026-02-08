@@ -19,10 +19,13 @@ class ServiceType(models.Model):
 
 class Provider(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.TextField(default='No Provider')
+    name = models.TextField(default='No Provider', null=False)
     address = models.TextField(null=True)
     phone = models.TextField(null=True)
     email = models.TextField(null=True)
+
+    class Meta:
+        unique_together = (('name', 'address'),)
 
 class Audience(models.Model):
     id = models.AutoField(primary_key=True)
@@ -37,7 +40,7 @@ class Service(models.Model):
     end_time = models.TimeField(default=datetime.time(0))
     periodic = models.IntegerField(default=0) # Special field for events that occur periodically,i.e. every 3rd Sat., int indicates nth day of the month
     provider = models.ForeignKey(Provider, default=1, on_delete=models.SET_DEFAULT)
-    note = models.TextField(default='')
+    note = models.TextField(default='', null=True)
     audience = models.ForeignKey(Audience, default=1, on_delete=models.SET_DEFAULT)
 
     class Meta:
