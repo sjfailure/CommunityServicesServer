@@ -38,7 +38,8 @@ class Service(models.Model):
     day = models.IntegerField(default=0) # 0-6 (M-Sun)
     start_time = models.TimeField(default=datetime.time(0)) # Presents as a datetime.time object in Python???
     end_time = models.TimeField(default=datetime.time(0))
-    periodic = models.IntegerField(default=0) # Special field for events that occur periodically,i.e. every 3rd Sat., int indicates nth day of the month
+    periodic = models.IntegerField(default=0) # Special field for events that occur periodically,i.e. every 3rd Sat.,
+                                              # int indicates nth day of the month
     provider = models.ForeignKey(Provider, default=1, on_delete=models.SET_DEFAULT)
     note = models.TextField(default='', null=True)
     audience = models.ForeignKey(Audience, default=1, on_delete=models.SET_DEFAULT)
@@ -240,7 +241,9 @@ def create_initial_data(apps=None, schema_editor=None):
             'Children and Teens',
             'Military Service Members and Veterans',
             'Justice-Involved and Returning Citizens',
-            'Unhoused or Experiencing Homelessness'
+            'Unhoused or Experiencing Homelessness',
+            'Women',
+            'Women, Trans, and Non-Confirming'
         ]:
             if not Audience.objects.filter(audience=audience).exists():
                 x = Audience(audience=audience)
