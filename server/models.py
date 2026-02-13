@@ -1,9 +1,9 @@
 import copy
-import datetime, calendar
+import datetime
 import logging
 
 import pytz
-from django.db import models, DataError
+from django.db import models, DataError, transaction
 
 # Create your models here.
 
@@ -31,20 +31,76 @@ class Audience(models.Model):
     id = models.AutoField(primary_key=True)
     audience = models.TextField(null=False)
 
+class Day(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        """Override of save prevents adding more than 7 days or altering the Day table."""
+        if not self.pk and Day.objects.count() >= 7:
+            raise PermissionError("The week only has 7 days. Don't play God.")
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """Override of delete prevents removing days fromt he Day table"""
+        raise PermissionError("What?! 7 days a week too much for you?! (Cannot alter Day table)")
+
+class ServiceManager(models.Manager):
+    def create_or_update_service(self, provider, start_time, end_time, day,
+                                 categories, types, audiences,
+                                 periodic=0, note='', report_status=False):
+
+        # 1. Standardize Time (handles "13:00:00" string or datetime.time object)
+        if isinstance(start_time, str):
+            start_time = datetime.time.fromisoformat(start_time)
+        if isinstance(end_time, str):
+            end_time = datetime.time.fromisoformat(end_time)
+
+        # 2. Atomic Transaction: Ensures if M2M adding fails, the service isn't created
+        with transaction.atomic():
+            service, created = self.get_or_create(
+                provider=provider,
+
+                start_time=start_time,
+                end_time=end_time,
+                periodic=periodic,
+                defaults={'note': note}
+            )
+
+            # 3. Helper to handle single objects vs lists for M2M
+            def ensure_list(item):
+                if isinstance(item, (list, models.QuerySet)):
+                    return item
+                return [item]
+
+            # 4. Bulk add M2M relations (Django's .add() handles duplicates for you!)
+            service.category.add(*ensure_list(categories))
+            service.type.add(*ensure_list(types))
+            service.audience.add(*ensure_list(audiences))
+            service.day.add(*ensure_list(day))
+
+        if report_status:
+            return service, created
+        return service
+
 class Service(models.Model):
     id = models.AutoField(primary_key=True)
-    category = models.ForeignKey(ServiceCategory, default=1, on_delete=models.SET_DEFAULT)
-    type = models.ForeignKey(ServiceType, default=1, on_delete=models.SET_DEFAULT)
-    day = models.IntegerField(default=0) # 0-6 (M-Sun)
+    category = models.ManyToManyField(ServiceCategory)
+    type = models.ManyToManyField(ServiceType)
+    provider = models.ForeignKey(Provider, default=1, on_delete=models.SET_DEFAULT)
+    audience = models.ManyToManyField(Audience)
+    day = models.ManyToManyField(Day) # 0-6 (M-Sun)
     start_time = models.TimeField(default=datetime.time(0)) # Presents as a datetime.time object in Python???
     end_time = models.TimeField(default=datetime.time(0))
     periodic = models.IntegerField(default=0) # Special field for events that occur periodically,i.e. every 3rd Sat., int indicates nth day of the month
-    provider = models.ForeignKey(Provider, default=1, on_delete=models.SET_DEFAULT)
     note = models.TextField(default='', null=True)
-    audience = models.ForeignKey(Audience, default=1, on_delete=models.SET_DEFAULT)
+    objects = ServiceManager()
 
     class Meta:
-        unique_together = (('provider', 'category', 'type', 'day', 'periodic', 'start_time'),)
+        unique_together = (('provider', 'periodic', 'start_time'),)
+        # TODO Consider this unique_together constraint; may hinder future Service object implementation
 
 class Event(models.Model):
     id = models.AutoField(primary_key=True)

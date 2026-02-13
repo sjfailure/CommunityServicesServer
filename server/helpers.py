@@ -1,4 +1,5 @@
 import datetime
+import logging
 import re
 from datetime import time
 
@@ -6,7 +7,7 @@ import pytz
 from django.core.exceptions import MultipleObjectsReturned
 from django.db import IntegrityError, transaction
 
-from server.models import Event, Provider, ServiceCategory, ServiceType, Audience, Service
+from server.models import Event, Provider, ServiceCategory, ServiceType, Audience, Service, Day
 
 
 def get_all_entries():
@@ -63,48 +64,29 @@ def pull_event_detail_view(event_id):
     return collected_data
 
 def insert_new_service_event(category, service_type, day, start_time, end_time, periodic, audience, provider, note=None, report_status=False):
-    if not isinstance(category, ServiceCategory):
-        raise TypeError(f"Field '{category}' must be ServiceCategory.")
-    if not isinstance(service_type, ServiceType):
-        raise TypeError(f"Field '{service_type}' must be ServiceType.")
-    if not isinstance(audience, Audience):
-        raise TypeError(f"Field '{audience}' must be Audience.")
-    if not isinstance(provider, Provider):
-        raise TypeError(f"Field '{provider}' must be Provider.")
-    if not isinstance(day, int):
-        raise TypeError(f"Field '{day}' must be int.")
-    if day < 0 or day > 6:
-        raise ValueError(f"Field '{day}' must be between 0 and 6.")
-    if not isinstance(start_time, str):
-        raise TypeError(f"Field '{start_time}' must be a str in 'HH:mm:ss' format.")
-    time_pattern = r"^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$"
-    if not re.match(time_pattern, start_time):
-        raise ValueError(f"Field '{start_time}' must be in 'HH:mm:ss' format.")
-    if not isinstance(end_time, str):
-        raise TypeError(f"Field '{end_time}' must be a str in 'HH:mm:ss' format.")
-    if not re.match(time_pattern, end_time):
-        raise ValueError(f"Field '{end_time}' must be in 'HH:mm:ss' format.")
-    if not isinstance(periodic, int):
-        raise TypeError(f"Field '{periodic}' must be int.")
-    if not isinstance(note, str) and note is not None:
-        raise TypeError(f"Field '{note}' must be str in 'Note' format.")
-    time_zone = pytz.timezone("America/Chicago")
-    h1, m1, s1 = start_time.split(":")
-    h2, m2, s2 = end_time.split(":")
-    start = datetime.time(hour=int(h1), minute=int(m1))
-    end = datetime.time(hour=int(h2), minute=int(m2))
-    service, boolean_return = Service.objects.get_or_create(category=category,
-                                  type=service_type,
-                                  start_time=start,
-                                  end_time=end,
-                                  provider=provider,
-                                  audience=audience,
-                                  day=day,
-                                  periodic=periodic,
-                                  defaults = {'note': note or ''}
-                                  )
     if report_status:
-        return service, boolean_return
+        service, created = Service.objects.create_or_update_service(categories=category,
+                                                                    types=service_type,
+                                                                    day=day,
+                                                                    start_time=start_time,
+                                                                    end_time=end_time,
+                                                                    periodic=periodic,
+                                                                    audiences=audience,
+                                                                    provider=provider,
+                                                                    note=note,
+                                                                    report_status=report_status)
+        return service, created
+
+    service = Service.objects.create_or_update_service(categories=category,
+                                                                types=service_type,
+                                                                day=day,
+                                                                start_time=start_time,
+                                                                end_time=end_time,
+                                                                periodic=periodic,
+                                                                audiences=audience,
+                                                                provider=provider,
+                                                                note=note,
+                                                       )
     return service
 
 
@@ -177,4 +159,10 @@ def retrieve_audience(audience):
     try:
         return Audience.objects.get(audience=audience)
     except Audience.DoesNotExist:
+        return None
+
+def retrieve_day(day_int):
+    try:
+        return Day.objects.get(id=day_int)
+    except Day.DoesNotExist:
         return None
