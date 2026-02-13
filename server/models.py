@@ -197,6 +197,7 @@ def create_initial_data(apps=None, schema_editor=None):
                          'General',
                          'General - Legal',
                          'General - Financial',
+                         'Housing',
                          'Housing referral',
                          'Rent Assistance',
                          'Utility Assistance',
@@ -224,7 +225,7 @@ def create_initial_data(apps=None, schema_editor=None):
                 super_category = service_categories_key_reference['Health']
             elif types in ['General', 'General - Legal', 'General - Financial', ]:
                 super_category = service_categories_key_reference['General']
-            elif types in ['Housing referral', 'Rent Assistance', 'Utility Assistance', ]:
+            elif types in ['Housing', 'Housing referral', 'Rent Assistance', 'Utility Assistance', ]:
                 super_category = service_categories_key_reference['Shelter']
             elif types in ['Clothes', 'Showers', 'Toiletries', 'Diapers', 'Laundry', ]:
                 super_category = service_categories_key_reference['Hygiene']
