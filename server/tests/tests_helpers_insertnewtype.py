@@ -41,18 +41,19 @@ class TestHelpersInsertNewType(django.test.TestCase):
         self.assertEqual(ServiceType.objects.count(), 1)
         self.assertIsInstance(result, ServiceType)
 
-    def test_same_name_different_category(self):
-        """
-        Unique constraint on ServiceType.type prevents multiple services of same type in separate categories.
-        """
-        other_cat = ServiceCategory.objects.create(category="Education")
-        type_name = "Workshops"
-
-        helpers.insert_new_service_type(type_name, self.category)
-        with self.assertRaises(IntegrityError):
-            helpers.insert_new_service_type(type_name, other_cat)
-
-        self.assertEqual(ServiceType.objects.count(), 1)
+    # NO LONGER VALID, SAME NAME, DIFFERENT CATEGORY IS ALLOWED
+    # def test_same_name_different_category(self):
+    #     """
+    #     Unique constraint on ServiceType.type prevents multiple services of same type in separate categories.
+    #     """
+    #     other_cat = ServiceCategory.objects.create(category="Education")
+    #     type_name = "Workshops"
+    #
+    #     helpers.insert_new_service_type(type_name, self.category)
+    #     with self.assertRaises(IntegrityError):
+    #         helpers.insert_new_service_type(type_name, other_cat)
+    #
+    #     self.assertEqual(ServiceType.objects.count(), 1)
 
 class TestHelpersRetrieveType(django.test.TestCase):
 

@@ -3,6 +3,7 @@ import logging
 from django.db import IntegrityError
 import django
 from django.test import TestCase
+from unicodedata import category
 
 from server import helpers
 from server.models import ServiceCategory, ServiceType, Audience, Provider, Service
@@ -14,6 +15,8 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         self.provider = Provider.objects.create(name="Unique Shop")
         self.service_category = ServiceCategory.objects.create(category="ServiceCat")
         self.service_type = ServiceType.objects.create(type="ServiceType", category=self.service_category)
+        self.second_service_category = ServiceCategory.objects.create(category="NewServiceCat")
+        self.second_service_type = ServiceType.objects.create(type="ServiceType", category=self.second_service_category)
         self.audience = Audience.objects.create(audience="Audience")
 
     def test_creates_new_service_event_happy_path(self):
@@ -30,7 +33,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         self.assertIsNotNone(service)
         self.assertIsInstance(service, Service)
         self.assertEqual(service.provider.name, "Unique Shop")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(0), service.day.all())
@@ -52,7 +55,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
                                                       )
         self.assertIsNotNone(service)
         self.assertEqual(service.provider.name, "Unique Shop")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(1), service.day.all())
@@ -74,7 +77,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
                                                       )
         self.assertIsNotNone(service)
         self.assertEqual(service.provider.name, "Unique Shop")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(2), service.day.all())
@@ -96,7 +99,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
                                                       )
         self.assertIsNotNone(service)
         self.assertEqual(service.provider.name, "Unique Shop")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(2), service.day.all())
@@ -119,7 +122,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
                                                       )
         self.assertIsNotNone(service)
         self.assertEqual(service.provider.name, "New Provider")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(1), service.day.all())
@@ -161,7 +164,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         self.assertIsNotNone(service)
         self.assertIsInstance(service, Service)
         self.assertEqual(service.provider.name, "Unique Shop")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(0), service.day.all())
@@ -188,7 +191,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         self.assertIsNotNone(service)
         self.assertIsInstance(service, Service)
         self.assertEqual(service.provider.name, "Unique Shop")
-        self.assertIn(self.service_category, service.category.all())
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
         self.assertIn(self.service_type, service.type.all())
         self.assertIn(self.audience, service.audience.all())
         self.assertIn(helpers.retrieve_day(0), service.day.all())
@@ -214,18 +217,19 @@ class TestHelpersInsertNewServiceEvent(TestCase):
 
     def test_fail_on_invalid_foreign_key_types(self):
         """Ensure the helper catches if a string is passed instead of a Model object."""
-        with self.assertRaises(ValueError):
-            helpers.insert_new_service_event(
-                category="Just a string",  # This should be a ServiceCategory object
-                service_type=self.service_type,
-                provider=self.provider,
-                audience=self.audience,
-                day=0,
-                start_time="12:00:00",
-                end_time="13:00:00",
-                periodic=0,
-                note="notes",
-            )
+        # TEST CASE OBSOLETE, CATEGORY NO LONGER USED IN SERVICE CREATION
+        # with self.assertRaises(ValueError):
+        #     helpers.insert_new_service_event(
+        #         category="Just a string",  # This should be a ServiceCategory object
+        #         service_type=self.service_type,
+        #         provider=self.provider,
+        #         audience=self.audience,
+        #         day=0,
+        #         start_time="12:00:00",
+        #         end_time="13:00:00",
+        #         periodic=0,
+        #         note="notes",
+        #     )
         with self.assertRaises(ValueError):
             helpers.insert_new_service_event(
                 category=self.service_category,
@@ -297,8 +301,8 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         audi2 = Audience.objects.create(audience="Veterans")
 
         service = helpers.insert_new_service_event(
-            category=[self.service_category, cat2],  # Passing a list
-            service_type=self.service_type,
+            category=None,  # OBSOLETE, CATEGORY REFERENCED VIA SERVICE_TYPE.CATEGORY
+            service_type=[self.service_type, self.second_service_type],
             provider=self.provider,
             audience=[self.audience, audi2],  # Passing a list
             day=0,
@@ -308,11 +312,11 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         )
 
         # Verify counts
-        self.assertEqual(service.category.count(), 2)
+        self.assertEqual(len(set([x.category for x in service.type.all()])), 2)
         self.assertEqual(service.audience.count(), 2)
 
         # Verify specific members
-        self.assertIn(cat2, service.category.all())
+        self.assertIn(self.second_service_category, [x.category for x in service.type.all()])
         self.assertIn(audi2, service.audience.all())
 
 
@@ -337,8 +341,8 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         # 2. Call again with a NEW category for the SAME provider/time
         new_cat = ServiceCategory.objects.create(category="New Add-on Service")
         service, created = helpers.insert_new_service_event(
-            category=new_cat,
-            service_type=self.service_type,
+            category=None, # OBSOLETE, CATEGORY REFERENCED FROM SERVICE_TYPE.CATEGORY
+            service_type=self.second_service_type,
             provider=self.provider,
             audience=self.audience,
             day=4,
@@ -352,9 +356,9 @@ class TestHelpersInsertNewServiceEvent(TestCase):
         self.assertEqual(Service.objects.count(), starting_count)  # No new DB row
 
         # 3. Verify the existing record now has BOTH categories
-        self.assertEqual(service.category.count(), 2)
-        self.assertIn(self.service_category, service.category.all())
-        self.assertIn(new_cat, service.category.all())
+        self.assertEqual(len(set([x.category for x in service.type.all()])), 2)
+        self.assertIn(self.service_category, [x.category for x in service.type.all()])
+        self.assertIn(self.second_service_category, [x.category for x in service.type.all()])
 
 
     def test_m2m_idempotency(self):
@@ -370,7 +374,7 @@ class TestHelpersInsertNewServiceEvent(TestCase):
             periodic=0
         )
         # Django's M2M .add() should filter out duplicates automatically
-        self.assertEqual(service.category.count(), 1)
+        self.assertEqual(len(set([x.category for x in service.type.all()])), 1)
 
     def test_create_service_with_multiple_days_list(self):
         """Verify passing a list of days tags a single service with all of them."""

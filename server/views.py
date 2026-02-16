@@ -1,8 +1,10 @@
 import time
+from http.client import HTTPResponse
 
+import django.http
 from django.conf import settings
 from django.db.models.functions import JSONObject
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 
@@ -20,21 +22,24 @@ from server.models import Event
 # TODO App connectors needed to continue API development
 
 def main_data(request):
+    data = Event.objects.select_related('service_id__provider').prefetch_related(
+        # 'service_id__category',
+        'service_id__type',
+        'service_id__audience'
+    ).all()
 
-    server.models.update_events_calendar()
-    data = Event.objects.select_related(
-                        'service_id',                 # Get related Services
-                        'service_id__type',          # Get related ServiceType
-                        'service_id__provider',       # Get related Providers
-                        'service_id__category',       # Get related ServicesCategories
-                        'service_id__audience'        # Get related Audience
-                         ).all()
     json_data = {'services': {}}
     for entry in data:
-        print(f'data for {entry.id} processed, start and end: ')
+        # Using entry.id as a key is fine, but GSON usually prefers an Array []
+        # of objects rather than a Dictionary {} of objects for lists.
         json_data['services'][entry.id] = helpers.event_data_packer(entry)
+
     return JsonResponse(json_data)
 
 def detail_view(request, event_id):
     event_data = {"event_data": helpers.pull_event_detail_view(event_id)}
     return JsonResponse(event_data)
+
+def database_update(request):
+    helpers.update_event_table()
+    return HttpResponse('done')

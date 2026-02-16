@@ -6,7 +6,7 @@ import django
 from server import helpers
 from server.models import ServiceCategory, ServiceType, Audience
 
-class TestHelpersInsertNewAudienceandRetrieveAudience(django.test.TestCase):
+class TestHelpersInsertNewAudienceAndRetrieveAudience(django.test.TestCase):
 
     def setUp(self):
         # Create foundational data for retrieval tests
