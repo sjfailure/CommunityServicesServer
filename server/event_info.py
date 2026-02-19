@@ -1,85 +1,399 @@
 all_providers = {
-    'AccessKC': [None, '816-276-7517', None],
-    'Bishop Sullivan Center: AccessKC Site': ['6435 Truman Rd.', '816-231-0984', None],
-    'Bishop Sullivan: One City Cafe': ['3936 Troost Ave.', '816-561-8515', None],
-    'Care Beyond the Boulevard: Independence Blvd. Christian Church': ['606 Gladstone Blvd.', None, None],
-    'Care Beyond the Boulevard: Cherith Brook Catholic Worker': ['3308 E. 12th St.', None, None],
-    'Catholic Charities: Welcome Center': ['8001 Longview Rd., Kansas City, MO 64134', '816-221-4377', None],
-    'Catholic Charities: SSVF': ['8001 Longview Rd., Kansas City, MO 64134', '816-659-8263', None],
-    'Central Presbyterian Church': ['3501 Campbell St.', '816-931-2515p2', None],
-    'City Union Mission Family Center': ['1310 Wabash Ave.', '816-474-4599', None],
-    'City Union Mission Men\'s Shelter': ['1108 E. 10th St.', '816-474-4599', None],
-    'Community LINC': ['4012 Troost Ave.', '816-531-3727', None],
-    'COMMUNITY RESOURCES @ CENTRAL LIBRARY': ['14 W. 10th St., Central Library, 3rd Floor', '816-701-3767', None],
-    'Family Promise of the Northland': ['10th & Baltimore Ave.', None, None],
-    'Fourth Wednesday Commissary': [None, None, None],
-    'Heartland Center for Behavioral Change': [None, '816-421-6670', None],
-    'HOPE FAITH HOMELESS ASSISTANCE CAMPUS': ['705 Virginia Ave.', '816-471-4673', None],
-    'Hope House': [None, '816-461-4673', None],
-    'Housing Authority of KC': ['3822 Summit St', '816-968-4100', None],
-    'Journey to New Life': ['3120 Troost Ave.', '816-960-4808', None],
-    'Kansas City VA Medical Center': ['4801 E. Linwood Ave.', '816-861-4700', None],
-    'KC CARE Health Center': [None, '816-753-5144', None],
-    'KC Health Department': ['3515 Broadway Blvd.', '816-513-6008', None],
-    'KC Health Department: Dental': ['2340 E. Meyer Blvd.', '816-513-6008', None],
-    'La Clinica': ['148 N. Topping Ave.', '816-581-5671', None],
-    'Legal Aid of Western Missouri': ['4001 Dr. Martin Luther King, Jr. Blvd., Ste. 300', '816-474-6750', None],
-    'Lutheran Family and Children\'s Services of Missouri': ['1 E. Armour Blvd., Ste 102', '866-326-5327', None],
-    'Metropolitan Lutheran Ministry': ['3031 Holmes Ave.', '816-931-0027', None],
-    'Micah Ministries @ Independence Bvld. Christian Church': ['606 Gladstone Blvd.', None, None],
-    'Morning Glory Ministries: 9th St.': ['20 W. 9th St.', None, None],
-    'Morning Glory Ministries: 12th St.': ['416 W. 12th St.', '816-842-0416', None],
-    'Mother’s Refuge': [None, '816-353-8070', None],
-    'Neighbor2Neighbor': ['2910 Victor St.', None, None],
-    'Newhouse': [None, '816-471-5800', None],
-    'NourishKC\'s KC Community Kitchen': ['750 Paseo Blvd.', None, None],
-    'Reconciliation Services': ['3101 Troost Ave.', '816-931-4751', None],
-    'Redemptorist Center': ['207 Linwood Blvd.', '816-931-9942', None],
-    'ReDiscover': [None, '816-966-0900', None],
-    'ReHope': [None, '816-739-0500', None],
-    'Relentless Pursuit Outreach & Recovery Drop-In Center': ['5108 Independence Ave.', '816-301-5571', None],
-    'Research Psychiatric Center': ['2323 E. 63rd St.', '816-444-8161', None],
-    'reStart, Inc.': ['918 E. 9th St.', '816-472-5664', None],
-    'reStart, SSVF': ['918 E. 9th St.', '816-886-9148', None],
-    'reStart Youth Emergency Shelter': [None, '816-309-9048', None],
-    'Rose Brooks Center': [None, '816-861-6100', None],
-    'Samuel U. Rogers Health Center': ['825 Euclid Ave.', '816-474-4920', None],
-    'SAVE, Inc.': [None, '816-531-8340p200', None],
-    'Second Chance': ['3100 Broadway Blvd., Ste. 302', '816-231-0450', None],
-    'Shelter KC': ['1520 Cherry St.', '816-421-7643', None],
-    'Shelter KC Women\'s Center': [None, '816-348-3287', None],
-    'St. Paul\'s Episcopal Church': ['40th St. & Main St.', '816-931-2850', None],
-    'Street Outreach': [None, '816-505-4901', None],
-    'Street Support KC': ['10th St. and Baltimore Ave.', None, None],
-    'Swope Health Services': ['3801 Dr. Martin Luther King, Jr. Blvd.', '816-599-5480', None],
-    'Synergy House': [None, '816-741-8700', None],
-    'Synergy Services': [None, '816-321-7050', None],
-    'THE BEEHIVE': ['750 Paseo Blvd.', None, None],
-    'The HALO Foundation': ['1600 Genessee St., Ste. 140', '816-590-4493', None],
-    'The LIGHT House Inc.': [None, '816-916-4434', None],
-    'The Salvation Army': ['3013 E. 9th St.', None, None],
-    'The Salvation Army Adult Rehabilitation Center': ['1351 E. 10th St.', '816-451-5434', None],
-    'The Salvation Army: SSVF': ['6618 E.Truman Rd.', '816-670-2414', None],
-    'Trinity United Methodist Church': ['620 E. Armour Blvd.', None, None],
-    'True Light Family Resource Center: 712': ['712 E. 31st St.', '816-561-1700', None],
-    'True Light Family Resource Center: 717': ['717 E. 31st St.', None, None],
-    'TLFRC: Emancipation Station': ['717 E. 31st St., Emancipation Station', '816-531-1300', None],
-    'Unity Southeast': ['3421 E. Meyer Blvd', None, None],
-    'University Health/Behavioral Services': ['300 W. 19th Ter.', '816-404-5700', None],
-    'Veterans Community Project: Outreach Center': ['8825 Troost Ave.', '816-599-6503', None],
-    'Vivent Health': ['4309 E. 50th Ter., Ste. 200', '816-561-8784', None],
-    'Washington Square Park': ['100 E. Pershing Rd.', None, None],
-    'Westport Presbyterian Church': ['201 Westport Rd.', None, None],
-    'Youth Resiliency Center': ['2001 NE Parvin, North Kansas City', '816-505-4840', None],
+    'AccessKC': [
+        None,
+        '816-276-7517',
+        None,
+    ],
+    'Bishop Sullivan Center: AccessKC Site': [
+        '6435 Truman Rd.',
+        '816-231-0984',
+        None,
+    ],
+    'Bishop Sullivan: One City Cafe': [
+        '3936 Troost Ave.',
+        '816-561-8515',
+        None,
+    ],
+    'Care Beyond the Boulevard: Independence Blvd. Christian Church': [
+        '606 Gladstone Blvd.',
+        None,
+        None,
+    ],
+    'Care Beyond the Boulevard: Cherith Brook Catholic Worker': [
+        '3308 E. 12th St.',
+        None,
+        None,
+    ],
+    'Catholic Charities: Welcome Center': [
+        '8001 Longview Rd., Kansas City, MO 64134',
+        '816-221-4377',
+        None,
+    ],
+    'Catholic Charities: SSVF': [
+        '8001 Longview Rd., Kansas City, MO 64134',
+        '816-659-8263',
+        None,
+    ],
+    'Central Presbyterian Church': [
+        '3501 Campbell St.',
+        '816-931-2515p2',
+        None,
+    ],
+    'City Union Mission Family Center': [
+        '1310 Wabash Ave.',
+        '816-474-4599',
+        None,
+    ],
+    'City Union Mission Men\'s Shelter': [
+        '1108 E. 10th St.',
+        '816-474-4599',
+        None,
+    ],
+    'Community LINC': [
+        '4012 Troost Ave.',
+        '816-531-3727',
+        None,
+    ],
+    'COMMUNITY RESOURCES @ CENTRAL LIBRARY': [
+        '14 W. 10th St., Central Library, 3rd Floor',
+        '816-701-3767',
+        None,
+    ],
+    'Family Promise of the Northland': [
+        '10th & Baltimore Ave.',
+        None,
+        None,
+    ],
+    'Fourth Wednesday Commissary': [
+        None,
+        None,
+        None,
+    ],
+    'Heartland Center for Behavioral Change': [
+        None,
+        '816-421-6670',
+        None,
+    ],
+    'HOPE FAITH HOMELESS ASSISTANCE CAMPUS': [
+        '705 Virginia Ave.',
+        '816-471-4673',
+        None,
+    ],
+    'Hope House': [
+        None,
+        '816-461-4673',
+        None,
+    ],
+    'Housing Authority of KC': [
+        '3822 Summit St',
+        '816-968-4100',
+        None,
+    ],
+    'Journey to New Life': [
+        '3120 Troost Ave.',
+        '816-960-4808',
+        None,
+    ],
+    'Kansas City VA Medical Center': [
+        '4801 E. Linwood Ave.',
+        '816-861-4700',
+        None,
+    ],
+    'KC CARE Health Center': [
+        None,
+        '816-753-5144',
+        None,
+    ],
+    'KC Health Department': [
+        '3515 Broadway Blvd.',
+        '816-513-6008',
+        None,
+    ],
+    'KC Health Department: Dental': [
+        '2340 E. Meyer Blvd.',
+        '816-513-6008',
+        None,
+    ],
+    'La Clinica': [
+        '148 N. Topping Ave.',
+        '816-581-5671',
+        None,
+    ],
+    'Legal Aid of Western Missouri': [
+        '4001 Dr. Martin Luther King, Jr. Blvd., Ste. 300',
+        '816-474-6750',
+        None,
+    ],
+    'Lutheran Family and Children\'s Services of Missouri': [
+        '1 E. Armour Blvd., Ste 102',
+        '866-326-5327',
+        None,
+    ],
+    'Metropolitan Lutheran Ministry': [
+        '3031 Holmes Ave.',
+        '816-931-0027',
+        None,
+    ],
+    'Micah Ministries @ Independence Bvld. Christian Church': [
+        '606 Gladstone Blvd.',
+        None,
+        None,
+    ],
+    'Morning Glory Ministries: 9th St.': [
+        '20 W. 9th St.',
+        None,
+        None,
+    ],
+    'Morning Glory Ministries: 12th St.': [
+        '416 W. 12th St.',
+        '816-842-0416',
+        None,
+    ],
+    'Mother’s Refuge': [
+        None,
+        '816-353-8070',
+        None,
+    ],
+    'Neighbor2Neighbor': [
+        '2910 Victor St.',
+        None,
+        None,
+    ],
+    'Newhouse': [
+        None,
+        '816-471-5800',
+        None,
+    ],
+    'NourishKC\'s KC Community Kitchen': [
+        '750 Paseo Blvd.',
+        None,
+        None,
+    ],
+    'Reconciliation Services': [
+        '3101 Troost Ave.',
+        '816-931-4751',
+        None,
+    ],
+    'Redemptorist Center': [
+        '207 Linwood Blvd.',
+        '816-931-9942',
+        None,
+    ],
+    'ReDiscover': [
+        None,
+        '816-966-0900',
+        None,
+    ],
+    'ReHope': [
+        None,
+        '816-739-0500',
+        None,
+    ],
+    'Relentless Pursuit Outreach & Recovery Drop-In Center': [
+        '5108 Independence Ave.',
+        '816-301-5571',
+        None,
+    ],
+    'Research Psychiatric Center': [
+        '2323 E. 63rd St.',
+        '816-444-8161',
+        None,
+    ],
+    'reStart, Inc.': [
+        '918 E. 9th St.',
+        '816-472-5664',
+        None,
+    ],
+    'reStart, SSVF': [
+        '918 E. 9th St.',
+        '816-886-9148',
+        None,
+    ],
+    'reStart Youth Emergency Shelter': [
+        None,
+        '816-309-9048',
+        None,
+    ],
+    'Rose Brooks Center': [
+        None,
+        '816-861-6100',
+        None,
+    ],
+    'Samuel U. Rogers Health Center': [
+        '825 Euclid Ave.',
+        '816-474-4920',
+        None,
+    ],
+    'SAVE, Inc.': [
+        None,
+        '816-531-8340p200',
+        None,
+    ],
+    'Second Chance': [
+        '3100 Broadway Blvd., Ste. 302',
+        '816-231-0450',
+        None,
+    ],
+    'Shelter KC': [
+        '1520 Cherry St.',
+        '816-421-7643',
+        None,
+    ],
+    'Shelter KC Women\'s Center': [
+        None,
+        '816-348-3287',
+        None,
+    ],
+    'St. Paul\'s Episcopal Church': [
+        '40th St. & Main St.',
+        '816-931-2850',
+        None,
+    ],
+    'Street Outreach': [
+        None,
+        '816-505-4901',
+        None,
+    ],
+    'Street Support KC': [
+        '10th St. and Baltimore Ave.',
+        None,
+        None,
+    ],
+    'Swope Health Services': [
+        '3801 Dr. Martin Luther King, Jr. Blvd.',
+        '816-599-5480',
+        None,
+    ],
+    'Synergy House': [
+        None,
+        '816-741-8700',
+        None,
+    ],
+    'Synergy Services': [
+        None,
+        '816-321-7050',
+        None,
+    ],
+    'THE BEEHIVE': [
+        '750 Paseo Blvd.',
+        None,
+        None,
+    ],
+    'The HALO Foundation': [
+        '1600 Genessee St., Ste. 140',
+        '816-590-4493',
+        None,
+    ],
+    'The LIGHT House Inc.': [
+        None,
+        '816-916-4434',
+        None,
+    ],
+    'The Salvation Army': [
+        '3013 E. 9th St.',
+        None,
+        None,
+    ],
+    'The Salvation Army Adult Rehabilitation Center': [
+        '1351 E. 10th St.',
+        '816-451-5434',
+        None,
+    ],
+    'The Salvation Army: SSVF': [
+        '6618 E.Truman Rd.',
+        '816-670-2414',
+        None,
+    ],
+    'Trinity United Methodist Church': [
+        '620 E. Armour Blvd.',
+        None,
+        None,
+    ],
+    'True Light Family Resource Center: 712': [
+        '712 E. 31st St.',
+        '816-561-1700',
+        None,
+    ],
+    'True Light Family Resource Center: 717': [
+        '717 E. 31st St.',
+        None,
+        None,
+    ],
+    'TLFRC: Emancipation Station': [
+        '717 E. 31st St., Emancipation Station',
+        '816-531-1300',
+        None,
+    ],
+    'Unity Southeast': [
+        '3421 E. Meyer Blvd',
+        None,
+        None,
+    ],
+    'University Health/Behavioral Services': [
+        '300 W. 19th Ter.',
+        '816-404-5700',
+        None,
+    ],
+    'Veterans Community Project: Outreach Center': [
+        '8825 Troost Ave.',
+        '816-599-6503',
+        None,
+    ],
+    'Vivent Health': [
+        '4309 E. 50th Ter., Ste. 200',
+        '816-561-8784',
+        None,
+    ],
+    'Washington Square Park': [
+        '100 E. Pershing Rd.',
+        None,
+        None,
+    ],
+    'Westport Presbyterian Church': [
+        '201 Westport Rd.',
+        None,
+        None,
+    ],
+    'Youth Resiliency Center': [
+        '2001 NE Parvin, North Kansas City',
+        '816-505-4840',
+        None,
+    ],
 }
+
 
 all_categories_and_types = {
         "Food": ['Breakfast', 'Lunch', 'Dinner', 'Pantry', ],
-        'Health': ['Health', 'Behavioral Health', 'Dental', 'Prescriptions', 'Vision', 'Pediatrics', 'OB/GYN',
-               'Drug Treatment', ],
-        'General': ['General', 'General - Legal', 'General - Financial', "Employment Services" ],
-        'Shelter': ['Housing', 'Housing referral', 'Rent Assistance', 'Utility Assistance', ],
-        'Hygiene': ['Clothes', 'Showers', 'Toiletries', 'Diapers', 'Laundry', 'Grooming' ],
+        'Health': [
+            'Health',
+            'Behavioral Health',
+            'Dental',
+            'Prescriptions',
+            'Vision',
+            'Pediatrics',
+            'OB/GYN',
+            'Drug Treatment',
+            ],
+        'General': [
+            'General',
+            'General - Legal',
+            'General - Financial',
+            "Employment Services",
+        ],
+        'Shelter': [
+            'Housing',
+            'Housing referral',
+            'Rent Assistance',
+            'Utility Assistance',
+        ],
+        'Hygiene': [
+            'Clothes',
+            'Showers',
+            'Toiletries',
+            'Diapers',
+            'Laundry',
+            'Grooming' ,
+        ],
         }
 
 all_audiences = [
@@ -237,18 +551,27 @@ service_list = {
         'start_time': '09:00:00',
         'end_time': '17:00:00',
         'period': 0,
-        'note': 'ages 4-24, Art & educational programs, food, dignity items etc., transitional living program youth ages 16-21'
+        'note': 'ages 4-24, Art & educational programs, food, dignity'
+                ' items etc., transitional living program youth '
+                'ages 16-21'
     },
     'Lutheran Family and Children\'s Services of Missouri General': {
-        'provider': 'Lutheran Family and Children\'s Services of Missouri',
+        'provider': 'Lutheran Family and Children\'s Services '
+                    'of Missouri',
         'category': ['Health', 'General'],
-        'service_type': ['Health', 'Behavioral Health', 'OB/GYN', 'General',],
+        'service_type': [
+            'Health',
+            'Behavioral Health',
+            'OB/GYN',
+            'General',],
         'audience': ['Children and Teens/Families', "Women"],
         'day': [0, 1, 2, 3, 4,],
         'start_time': '09:00:00',
         'end_time': '17:00:00',
         'period': 0,
-        'note': 'Free counseling ages 3-19 for Jackson County residents, parenting & pregnancy services, adoptive & birth parent services'
+        'note': 'Free counseling ages 3-19 for Jackson County '
+                'residents, parenting & pregnancy services, adoptive & '
+                'birth parent services'
     },
     'Mother’s Refuge': {
         'provider': 'Mother’s Refuge',
@@ -259,7 +582,9 @@ service_list = {
         'start_time': '09:00:00',
         'end_time': '17:00:00',
         'period': 0,
-        'note': 'shelter for pregnant or parenting moms ages 12-21 (children 0-2), Transitional Living Program for single moms 18+'
+        'note': 'shelter for pregnant or parenting moms ages 12-21 '
+                '(children 0-2), Transitional Living Program for single'
+                ' moms 18+'
     },
     'reStart Youth Emergency Shelter': {
         'provider': 'reStart Youth Emergency Shelter',
@@ -303,7 +628,8 @@ service_list = {
         'start_time': '00:00:00',
         'end_time': '23:59:00',
         'period': 0,
-        'note': '24/7 Hotline (various services, teen tele-support groups)'
+        'note': '24/7 Hotline (various services, teen tele-support '
+                'groups)'
     },
     'Youth Resiliency Center General': {
         'provider': 'Youth Resiliency Center',
@@ -314,7 +640,9 @@ service_list = {
         'start_time': '14:30:00',
         'end_time': '18:30:00',
         'period': 0,
-        'note': 'Drop-in Services 11:00am-2:30pm - Laundry, showers, pantry services, art studio, daily classes and case management'
+        'note': 'Drop-in Services 11:00am-2:30pm - Laundry, showers, '
+                'pantry services, art studio, daily classes and case '
+                'management'
     },
     'Youth Resiliency Center "Drop-in Service Hours?"': {
         'provider': 'Youth Resiliency Center',
@@ -325,7 +653,9 @@ service_list = {
         'start_time': '11:00:00',
         'end_time': '14:30:00',
         'period': 0,
-        'note': 'Drop-in Services 11:00am-2:30pm - Laundry, showers, pantry services, art studio, daily classes and case management'
+        'note': 'Drop-in Services 11:00am-2:30pm - Laundry, showers, '
+                'pantry services, art studio, daily classes and case '
+                'management'
     },
     # LOCAL WRAPAROUND SERVICE CAMPUSES
     'Bishop Sullivan Center: AccessKC Site Wraparound': {
@@ -376,12 +706,17 @@ service_list = {
         'provider': 'THE BEEHIVE',
         'category': ['Shelter'],
         'service_type': ['Housing', 'Housing referral'],
-        'audience': ['Unhoused or Experiencing Homelessness', 'Everyone',],
+        'audience': [
+            'Unhoused or Experiencing Homelessness',
+            'Everyone',
+        ],
         'day': [1],
         'start_time': '11:00:00',
         'end_time': '15:00:00',
         'period': 0,
-        'note': 'Housing assistance Tuesday 11:00am- 3pm. Related support services Tues-Thurs 11:00am-3:30pm walk-in and appointments available'
+        'note': 'Housing assistance Tuesday 11:00am-3pm. Related '
+                'support services Tues-Thurs 11:00am-3:30pm walk-in '
+                'and appointments available'
     },
     'THE BEEHIVE "Related Support Services?': {
         'provider': 'THE BEEHIVE',
@@ -392,7 +727,9 @@ service_list = {
         'start_time': '11:00:00',
         'end_time': '15:30:00',
         'period': 0,
-        'note': 'Housing assistance Tuesday 11:00am- 3pm. Related support services Tues-Thurs 11:00am-3:30pm walk-in and appointments available'
+        'note': 'Housing assistance Tuesday 11:00am-3pm. Related '
+                'support services Tues-Thurs 11:00am-3:30pm walk-in '
+                'and appointments available'
     },
     'Care Beyond the Boulevard: Independence Blvd. Christian Church medical': {
         'provider': 'Care Beyond the Boulevard: Independence Blvd. Christian Church',
@@ -403,7 +740,9 @@ service_list = {
         'start_time': '11:00:00',
         'end_time': '15:30:00',
         'period': 0,
-        'note': 'medical services and patient case management on Tuesday-Thursday 11:00 am–3:30 pm. Walk-ins and appointments available.'
+        'note': 'medical services and patient case management on '
+                'Tuesday-Thursday 11:00 am–3:30 pm. Walk-ins and '
+                'appointments available.'
     },
     'Care Beyond the Boulevard: Independence Blvd. Christian Church dental': {
         'provider': 'Care Beyond the Boulevard: Independence Blvd. Christian Church',
@@ -414,7 +753,9 @@ service_list = {
         'start_time': '11:00:00',
         'end_time': '15:30:00',
         'period': 0,
-        'note': 'Dental exams and emergency extractions only on Wednesday 11:00am-3:30pm. Walk-ins and appointments available.'
+        'note': 'Dental exams and emergency extractions only on '
+                'Wednesday 11:00am-3:30pm. Walk-ins and appointments '
+                'available.'
     },
     'Care Beyond the Boulevard: Independence Blvd. Christian Church behavioral': {
         'provider': 'Care Beyond the Boulevard: Independence Blvd. Christian Church',
@@ -458,7 +799,12 @@ service_list = {
         'start_time': '06:30:00',
         'end_time': '14:00:00',
         'period': 0,
-        'note': 'Guest Services: Mon, Tues, Wed, Fri 7:00am-2:00pm & Thurs 7:00am-1:00pm\ncloses daily from 10:00am-11:00am\nClothing Shop: emergency approval only\nHope Cuts: Mon-Fri. 9am – 1:00pm\nMail Pick-Up: Must sign up first, pick-up times M-Fri. 7-10am, 11am1:45pm'
+        'note': 'Guest Services: Mon, Tues, Wed, Fri 7:00am-2:00pm & '
+                'Thurs 7:00am-1:00pm\ncloses daily from '
+                '10:00am-11:00am\nClothing Shop: emergency approval '
+                'only\nHope Cuts: Mon-Fri. 9am – 1:00pm\nMail '
+                'Pick-Up: Must sign up first, pick-up times M-Fri. '
+                '7-10am, 11am-1:45pm'
     }, # Mail, Showers, Clothing
     'HOPE FAITH HOMELESS ASSISTANCE CAMPUS General Thursday': {
         'provider': 'HOPE FAITH HOMELESS ASSISTANCE CAMPUS',
@@ -469,7 +815,12 @@ service_list = {
         'start_time': '06:30:00',
         'end_time': '13:00:00',
         'period': 0,
-        'note': 'Guest Services: Mon, Tues, Wed, Fri 7:00am-2:00pm & Thurs 7:00am-1:00pm\ncloses daily from 10:00am-11:00am\nClothing Shop: emergency approval only\nHope Cuts: Mon-Fri. 9am – 1:00pm\nMail Pick-Up: Must sign up first, pick-up times M-Fri. 7-10am, 11am1:45pm'
+        'note': 'Guest Services: Mon, Tues, Wed, Fri 7:00am-2:00pm & '
+                'Thurs 7:00am-1:00pm\ncloses daily from '
+                '10:00am-11:00am\nClothing Shop: emergency approval '
+                'only\nHope Cuts: Mon-Fri. 9am – 1:00pm\nMail '
+                'Pick-Up: Must sign up first, pick-up times M-Fri. '
+                '7-10am, 11am-1:45pm'
     }, # Mail, Showers, Clothing
     'HOPE FAITH HOMELESS ASSISTANCE CAMPUS Laundry': {
         'provider': 'HOPE FAITH HOMELESS ASSISTANCE CAMPUS',
@@ -502,7 +853,11 @@ service_list = {
         'start_time': '06:30:00',
         'end_time': '14:00:00',
         'period': 0,
-        'note': 'Swope Health Services provides transportation from Hope Faith to their 3801 Dr. Martin Luther King, Jr. Blvd. location: Mon and Wed from 7:20am-7:30am Swope Mobile Medical Unit stop at Hope Faith every other Thurs from 9:00am-12:00pm'
+        'note': 'Swope Health Services provides transportation from '
+                'Hope Faith to their 3801 Dr. Martin Luther King, '
+                'Jr. Blvd. location: Mon and Wed from 7:20am-7:30am '
+                'Swope Mobile Medical Unit stop at Hope Faith every '
+                'other Thurs from 9:00am-12:00pm'
     },
     # 'HOPE FAITH HOMELESS ASSISTANCE CAMPUS Medical mobile': {
     #     'provider': 'HOPE FAITH HOMELESS ASSISTANCE CAMPUS',
@@ -513,7 +868,11 @@ service_list = {
     #     'start_time': '09:00:00',
     #     'end_time': '1:00:00',
     #     'period': ?,
-    #     'note': 'Swope Health Services provides transportation from Hope Faith to their 3801 Dr. Martin Luther King, Jr. Blvd. location: Mon and Wed from 7:20am-7:30am Swope Mobile Medical Unit stop at Hope Faith every other Thurs from 9:00am-12:00pm'
+    #     'note': 'Swope Health Services provides transportation from '
+    #             'Hope Faith to their 3801 Dr. Martin Luther King, '
+    #             'Jr. Blvd. location: Mon and Wed from 7:20am-7:30am'
+    #             'Swope Mobile Medical Unit stop at Hope Faith every'
+    #             'other Thurs from 9:00am-12:00pm'
     # }, #  TRUE periodic, every OTHER Thursday
     # FOOD/MEALS
     'Bishop Sullivan: One City Cafe Lunch': {

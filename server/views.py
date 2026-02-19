@@ -7,19 +7,10 @@ from django.db.models.functions import JSONObject
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
-
-
-
-import server.models
 from server import helpers
 from server.models import Event
 
-
 # Create your views here.
-
-# TODO Prepare API endpoints
-
-# TODO App connectors needed to continue API development
 
 def main_data(request):
     data = Event.objects.select_related('service_id__provider').prefetch_related(

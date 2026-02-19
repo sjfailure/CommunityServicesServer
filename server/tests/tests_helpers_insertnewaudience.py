@@ -1,12 +1,12 @@
-import unittest
-
-from django.db import IntegrityError
 import django
 
 from server import helpers
 from server.models import ServiceCategory, ServiceType, Audience
 
 class TestHelpersInsertNewAudienceAndRetrieveAudience(django.test.TestCase):
+    """
+    Test Suite for server.helpers.insert_new_audience().
+    """
 
     def setUp(self):
         # Create foundational data for retrieval tests

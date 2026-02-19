@@ -1,3 +1,9 @@
+"""
+Contains CLI functions to pre-populate the Provider, Cateogory, and
+Types tables with hard-coded data. Accessed via
+"manage.py populate_data".
+"""
+
 from django.core.management.base import BaseCommand
 from server.helpers import sync_service_definitions
 
@@ -7,12 +13,12 @@ import server
 def populate_providers():
     # Provider = apps.get_model('server', 'Provider')
     provider_data = server.event_info.all_providers
-    for provider in provider_data:
+    for provider, info in provider_data.items:
         server.helpers.insert_new_provider(
             name=provider,
-            address=provider_data[provider][0],
-            phone=provider_data[provider][1],
-            email=provider_data[provider][2]
+            address=info[0],
+            phone=info[1],
+            email=info[2]
         )
 
 def populate_categories_types():
@@ -39,5 +45,5 @@ class Command(BaseCommand):
         populate_providers()
         populate_audience()
         populate_categories_types()
-        server.helpers.sync_service_definitions()
+        sync_service_definitions()
         self.stdout.write(self.style.SUCCESS("Successfully synced 27 services!"))

@@ -1,6 +1,3 @@
-import unittest
-
-from django.db import IntegrityError
 import django
 
 from server import helpers
@@ -8,6 +5,9 @@ from server.models import ServiceCategory, ServiceType, Audience
 
 
 class TestHelpersInsertNewCategory(django.test.TestCase):
+    """
+    Test Suite for server.helpers.insert_new_category().
+    """
 
     def test_creates_new_category_if_missing(self):
         """Standard case: Category doesn't exist yet."""
@@ -30,7 +30,8 @@ class TestHelpersInsertNewCategory(django.test.TestCase):
         result = helpers.insert_new_service_category(name)
 
         # Assertions
-        self.assertEqual(ServiceCategory.objects.count(), initial_count)  # Still 1
+        self.assertEqual(ServiceCategory.objects.count(), initial_count)
+        # Still 1
         self.assertEqual(result.category, name)
 
     def test_handles_empty_input(self):
@@ -44,7 +45,8 @@ class TestHelpersRetrieveCatergory(django.test.TestCase):
     def setUp(self):
         # Create foundational data for retrieval tests
         self.cat = ServiceCategory.objects.create(category="Food")
-        self.stype = ServiceType.objects.create(type="Pantry", category=self.cat)
+        self.stype = ServiceType.objects.create(type="Pantry",
+                                                category=self.cat)
         self.aud = Audience.objects.create(audience="Families")
 
     def test_retrieve_service_category_success(self):
@@ -52,4 +54,5 @@ class TestHelpersRetrieveCatergory(django.test.TestCase):
         self.assertEqual(found.id, self.cat.id)
 
     def test_retrieve_service_category_none(self):
-        self.assertIsNone(helpers.retrieve_service_category("Non-Existent"))
+        self.assertIsNone(helpers.retrieve_service_category(
+            "Non-Existent"))

@@ -24,34 +24,45 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Audience',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
                 ('audience', models.TextField()),
             ],
         ),
         migrations.CreateModel(
             name='Day',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='ServiceCategory',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
                 ('category', models.TextField()),
             ],
         ),
         migrations.CreateModel(
             name='Update',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('last_update', models.DateTimeField(default=datetime.date(1900, 1, 1))),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'
+                    )
+                 ),
+                ('last_update', models.DateTimeField(
+                    default=datetime.date(1900, 1, 1))),
             ],
         ),
         migrations.CreateModel(
             name='Provider',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
                 ('name', models.TextField(default='No Provider')),
                 ('address', models.TextField(null=True)),
                 ('phone', models.TextField(null=True)),
@@ -64,9 +75,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ServiceType',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
                 ('type', models.CharField(max_length=255)),
-                ('category', models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='server.servicecategory')),
+                ('category', models.ForeignKey(
+                    default=1,
+                    on_delete=django.db.models.deletion.SET_DEFAULT,
+                    to='server.servicecategory'
+                    )
+                 ),
             ],
             options={
                 'unique_together': {('type', 'category')},
@@ -75,32 +92,53 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Service',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('start_time', models.TimeField(default=datetime.time(0, 0))),
-                ('end_time', models.TimeField(default=datetime.time(0, 0))),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
+                ('start_time', models.TimeField(
+                    default=datetime.time(0, 0))),
+                ('end_time', models.TimeField(
+                    default=datetime.time(0, 0))),
                 ('periodic', models.IntegerField(default=0)),
                 ('note', models.TextField(default='', null=True)),
-                ('audience', models.ManyToManyField(to='server.audience')),
+                ('audience', models.ManyToManyField(
+                    to='server.audience')),
                 ('day', models.ManyToManyField(to='server.day')),
-                ('provider', models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='server.provider')),
-                ('type', models.ManyToManyField(to='server.servicetype')),
+                ('provider', models.ForeignKey(
+                    default=1,
+                    on_delete=django.db.models.deletion.SET_DEFAULT,
+                    to='server.provider'
+                    )
+                 ),
+                ('type', models.ManyToManyField(
+                    to='server.servicetype')),
             ],
             options={
-                'unique_together': {('provider', 'start_time', 'end_time', 'periodic', 'note')},
+                'unique_together': {(
+                    'provider',
+                    'start_time',
+                    'end_time',
+                    'periodic',
+                    'note'
+                )},
             },
         ),
         migrations.CreateModel(
             name='Event',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('date', models.DateTimeField(default=datetime.date(1900, 1, 1))),
-                ('end', models.DateTimeField(default=datetime.date(1900, 1, 1))),
-                ('service_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='server.service')),
+                ('id', models.AutoField(
+                    primary_key=True, serialize=False)),
+                ('date', models.DateTimeField(
+
+                    default=datetime.date(1900, 1, 1))),
+                ('end', models.DateTimeField(
+                    default=datetime.date(1900, 1, 1))),
+                ('service_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='server.service')),
             ],
             options={
                 'unique_together': {('service_id', 'date')},
             },
         ),
         migrations.RunPython(populate_days),
-
     ]
