@@ -1154,7 +1154,8 @@ service_list = {
         'end_time': '09:30:00',
         'period': 0,
         'note': '',
-    }, 'Westport Presbyterian Church Resource Drop-in Center': {
+    },
+    'Westport Presbyterian Church Resource Drop-in Center': {
         'provider': 'Westport Presbyterian Church',
         'category': ["Food",],
         'service_type': ["Lunch",],
@@ -1165,7 +1166,216 @@ service_list = {
         'period': 0,
         'note': 'Resource Drop-in Center, (sack lunches provided while supplies last)',
     },
+    # HEALTH
+    'Care Beyond the Boulevard: Independence Blvd. Christian Church Health M': {
+        'provider': 'Care Beyond the Boulevard: Independence Blvd. '
+                    'Christian Church',
+        'category': ["Health"],
+        'service_type': ["Health"],
+        'audience': "Everyone",
+        'day': [0],
+        'start_time': '16:00:00',
+        'end_time': '19:00:00',
+        'period': 0,
+        'note': '',
+    },
+    'Care Beyond the Boulevard: Independence Blvd. Christian Church Health S': {
+        'provider': 'Care Beyond the Boulevard: Independence Blvd. '
+                    'Christian Church',
+        'category': ["Health"],
+        'service_type': ["Health"],
+        'audience': "Everyone",
+        'day': [5],
+        'start_time': '09:00:00',
+        'end_time': '12:00:00',
+        'period': 0,
+        'note': '',
+    },
+    # 'Care Beyond the Boulevard: Independence Blvd. Christian Church M': {
+    #     'provider': 'Care Beyond the Boulevard: Independence Blvd. '
+    #                 'Christian Church',
+    #     'category': ["Food"],
+    #     'service_type': ["Pantry"],
+    #     'audience': "Everyone",
+    #     'day': [5],
+    #     'start_time': '10:00:00',
+    #     'end_time': '12:00:00',
+    #     'period': 2, # 2nd Saturday of each month
+    #     'note': '2nd Sat 10am-12pm Mobile food pantry',
+    # },
+    'Care Beyond the Boulevard: Cherith Brook Catholic Worker Health': {
+        'provider': 'Care Beyond the Boulevard: Cherith Brook Catholic Worker',
+        'category': ["Health"],
+        'service_type': ["Health"],
+        'audience': "Everyone",
+        'day': [3],
+        'start_time': '17:00:00',
+        'end_time': '19:00:00',
+        'period': 0,
+        'note': '',
+    },
 
+    'KC CARE Health Center Health Mon and tue': {
+        'provider': 'KC CARE Health Center',
+        'category': ['Health'],
+        'service_type': ['Health', 'Dental',],
+        'audience': "Everyone",
+        'day': [0,1],
+        'start_time': '09:00:00',
+        'end_time': '18:00:00',
+        'period': 0,
+        'note': '(dental), Confidential, sex positive, judgement free '
+                'clinic - Free HIV, Hep C, Syphilis testing. Walk-In '
+                'Testing: Mon & Tues 9:00am-6:00pm and Wed-Fri '
+                '9:00am-4:30pm www.kcprevention.org'
+    },
+    'KC CARE Health Center Health W-F': {
+        'provider': 'KC CARE Health Center',
+        'category': ['Health'],
+        'service_type': ['Health', 'Dental', ],
+        'audience': ["Everyone", ],
+        'day': [2, 3, 4],
+        'start_time': '09:00:00',
+        'end_time': '16:30:00',
+        'period': 0,
+        'note': '(dental), Confidential, sex positive, judgement free '
+                'clinic - Free HIV, Hep C, Syphilis testing. Walk-In '
+                'Testing: Mon & Tues 9:00am-6:00pm and Wed-Fri '
+                '9:00am-4:30pm www.kcprevention.org'
+    },
+    'Heartland Center for Behavioral Change': {
+        'provider': 'Heartland Center for Behavioral Change',
+        'category': ['Health'],
+        'service_type': ['Behavioral Health', ],
+        'audience': 'Justice-Involved and Returning Citizens',
+        'day': [0, 1, 2, 3, 4,],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': '',
+    },
+    'KC Health Department': {
+        'provider': 'KC Health Department',
+        'category': ['Health'],
+        'service_type': ['Health', ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': '',
+    },
+    'La Clinica medical': {
+        'provider': 'La Clinica',
+        'category': ['Health'],
+        'service_type': ['Health', ],
+        'audience': 'Everyone',
+        'day': [4, ],
+        'start_time': "09:00:00",
+        'end_time': '16:30:00',
+        'period': 0,
+        'note': 'apt. only, no insurance needed, $35 copay',
+    },
+    'AccessKC medical': {
+        'provider': 'AccessKC',
+        'category': ['Health'],
+        'service_type': ['Health', 'Dental',
+                         'Prescriptions', 'Vision',],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Formerly KC Medicine Cabinet - Vouchers for '
+                'prescriptions, dental, diabetic supplies, eye exams, '
+                'eyeglasses, hearing aids, & medical equipment',
+    },
+    'ReDiscover medical': {
+        'provider': 'ReDiscover',
+        'category': ['Health'],
+        'service_type': ['Health', 'Behavioral Health', ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'In-person or telehealth',
+    },
+    'Research Psychiatric Center medical': {
+        'provider': 'Research Psychiatric Center',
+        'category': ['Health'],
+        'service_type': ['Behavioral Health', ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': '',
+    },
+    'Samuel U. Rogers Health Center medical': {
+        'provider': 'Samuel U. Rogers Health Center',
+        'category': ['Health'],
+        'service_type': ['Behavioral Health', 'Health', "Dental"],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': '',
+    },
+    'Swope Health Services morning health': {
+        'provider': 'Swope Health Services',
+        'category': ["Health"],
+        'service_type': ['Health', 'Behavioral Health', 'Dental',
+                         'Prescriptions', 'Vision', 'Pediatrics',
+                         'OB/GYN', 'Drug Treatment', ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4,],
+        'start_time': '08:30:00',
+        'end_time': '12:00:00',
+        'period': 0,
+        'note': 'Free medical, dental, behavioral health, optometry, '
+                'pediatrics, OB/GYN services, medication assistance, '
+                'Medicaid applications, Covid & STI testing'
+    },
+    'Swope Health Services afternoon health': {
+        'provider': 'Swope Health Services',
+        'category': ["Health"],
+        'service_type': ['Health', 'Behavioral Health', 'Dental',
+                         'Prescriptions', 'Vision', 'Pediatrics',
+                         'OB/GYN', 'Drug Treatment', ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': '13:00:00',
+        'end_time': '16:00:00',
+        'period': 0,
+        'note': 'Free medical, dental, behavioral health, optometry, '
+                'pediatrics, OB/GYN services, medication assistance, '
+                'Medicaid applications, Covid & STI testing'
+    },
+    'University Health/Behavioral Services': {
+        'provider': 'University Health/Behavioral Services',
+        'category': ['Health'],
+        'service_type': ['Behavioral Health', 'Health' ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "08:00:00",
+        'end_time': '14:00:00',
+        'period': 0,
+        'note': '',
+    },
+    'Vivent Health medical': {
+        'provider': 'Vivent Health',
+        'category': ['Health'],
+        'service_type': ['Health', ],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': "09:00:00",
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'HIV & AIDS services; free HIV/STI testing',
+    },
+    # GENERAL HELP
 }
         # 'provider': ,
         # 'category': [],

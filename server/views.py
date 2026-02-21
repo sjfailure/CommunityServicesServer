@@ -13,7 +13,9 @@ from server.models import Event
 # Create your views here.
 
 def main_data(request):
-    data = Event.objects.select_related('service_id__provider').prefetch_related(
+    data = Event.objects.select_related(
+        'service_id__provider'
+    ).prefetch_related(
         # 'service_id__category',
         'service_id__type',
         'service_id__audience'
@@ -21,14 +23,27 @@ def main_data(request):
 
     json_data = {'services': {}}
     for entry in data:
-        # Using entry.id as a key is fine, but GSON usually prefers an Array []
-        # of objects rather than a Dictionary {} of objects for lists.
-        json_data['services'][entry.id] = helpers.event_data_packer(entry)
+        # Using entry.id as a key is fine, but GSON usually prefers an
+        # Array [] of objects rather than a Dictionary {} of objects
+        # for lists.
+        json_data['services'][entry.id] = (
+            helpers.event_data_packer(entry))
+
+    # include all Category and Type information
+    json_data.setdefault(
+        'categories/types', helpers.get_all_categories_types())
+
+    # include all Audiences
+    json_data.setdefault(
+        'audiences', helpers.get_all_audiences()
+    )
 
     return JsonResponse(json_data)
 
 def detail_view(request, event_id):
-    event_data = {"event_data": helpers.pull_event_detail_view(event_id)}
+    event_data = {
+        "event_data": helpers.pull_event_detail_view(event_id)
+    }
     return JsonResponse(event_data)
 
 def database_update(request):

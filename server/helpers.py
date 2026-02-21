@@ -305,7 +305,7 @@ def sync_service_definitions():
         # 2. Create/Update the Service base object
         # Note: We don't put ManyToMany fields in get_or_create
 
-        service = Service.objects.get_or_create(
+        service, created = Service.objects.get_or_create(
             provider=provider,
             start_time=data['start_time'],
             end_time=data['end_time'],
@@ -339,3 +339,20 @@ def sync_service_definitions():
             data['service_type']]
         type_objs = ServiceType.objects.filter(type__in=type_names)
         service.type.set(type_objs)
+
+def get_all_categories_types():
+    """
+    Returns a dictionary of all service categories and related service
+    types, schema {category: [type(s)]}.
+    """
+    data = {}
+    for service_type in ServiceType.objects.all():
+        category = service_type.category.category
+        data.setdefault(category,[])
+        data[category].append(service_type.type)
+    return data
+
+def get_all_audiences():
+    """Returns an array of all audience types."""
+    return list({x.audience for x in Audience.objects.all()})
+
