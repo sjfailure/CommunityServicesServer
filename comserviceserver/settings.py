@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
+    # 'oauth2_provider',
     'rest_framework',
     'server',
 ]
@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+    # 'oauth2_provider.middleware.OAuth2TokenMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -82,19 +82,19 @@ WSGI_APPLICATION = 'comserviceserver.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'defaultdb',
+    #     'USER': os.environ.get('community_services_server_USER'),
+    #     'PASSWORD': os.environ.get('community_services_server_PASSWORD'),
+    #     'HOST': os.environ.get('community_services_server_HOST'),
+    #     'PORT': '13106',
+    #     'OPTIONS': {
+    #         'ssl': {
+    #             'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
+    #         },
+    #     },
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'defaultdb',
-        'USER': os.environ.get('community_services_server_USER'),
-        'PASSWORD': os.environ.get('community_services_server_PASSWORD'),
-        'HOST': os.environ.get('community_services_server_HOST'),
-        'PORT': '13106',
-        'OPTIONS': {
-            'ssl': {
-                'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
-            },
-        },
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': 'defaultdb',
     }
 }
 
@@ -161,7 +161,7 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
-            'level': 'DEBUG',  # Set the logging level for the console
+            'level': 'INFO',  # Set the logging level for the console
         },
         'file': {
             'class': 'logging.FileHandler',
@@ -174,10 +174,10 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],
-            'level': 'WARN',  # Set the logging level for Django
+            'level': 'INFO',  # Set the logging level for Django
             'propagate': True,  # Propagate to parent loggers
         },
-        'myapp': {  # Custom logger for your application
+        'server': {  # Custom logger for your application
             'handlers': ['console', 'file'],
             'level': 'INFO',  # Set the logging level for your app
             'propagate': False,
