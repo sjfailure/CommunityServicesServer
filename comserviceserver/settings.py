@@ -167,19 +167,19 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'django_app.log'),  # Adjust the filename accordingly
             'formatter': 'verbose',
-            'level': 'INFO',  # Set the logging level for the file
+            'level': 'DEBUG',  # Set the logging level for the file
         },
     },
 
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],
-            'level': 'WARN',  # Set the logging level for Django
+            'level': 'DEBUG',  # Set the logging level for Django
             'propagate': True,  # Propagate to parent loggers
         },
-        'myapp': {  # Custom logger for your application
+        'server': {  # Custom logger for your application
             'handlers': ['console', 'file'],
-            'level': 'INFO',  # Set the logging level for your app
+            'level': 'DEBUG',  # Set the logging level for your app
             'propagate': False,
         },
     },

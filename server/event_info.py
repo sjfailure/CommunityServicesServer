@@ -274,6 +274,11 @@ all_providers = {
         '816-321-7050',
         None,
     ],
+    'Teresa\'s Place': [
+        None,
+        "816-321-7050",
+        None,
+    ],
     'THE BEEHIVE': [
         '750 Paseo Blvd.',
         None,
@@ -731,8 +736,11 @@ service_list = {
                 'support services Tues-Thurs 11:00am-3:30pm walk-in '
                 'and appointments available'
     },
-    'Care Beyond the Boulevard: Independence Blvd. Christian Church medical': {
-        'provider': 'Care Beyond the Boulevard: Independence Blvd. Christian Church',
+    'Care Beyond the Boulevard: Independence Blvd. Christian Church '
+    'medical':
+        {
+        'provider': 'Care Beyond the Boulevard: Independence Blvd. '
+                    'Christian Church',
         'category': ['Health'],
         'service_type': ['Health', 'Prescriptions'],
         'audience': 'Unhoused or Experiencing Homelessness',
@@ -744,8 +752,11 @@ service_list = {
                 'Tuesday-Thursday 11:00 am–3:30 pm. Walk-ins and '
                 'appointments available.'
     },
-    'Care Beyond the Boulevard: Independence Blvd. Christian Church dental': {
-        'provider': 'Care Beyond the Boulevard: Independence Blvd. Christian Church',
+    'Care Beyond the Boulevard: Independence Blvd. Christian Church '
+    'dental':
+        {
+        'provider': 'Care Beyond the Boulevard: Independence Blvd. '
+                    'Christian Church',
         'category': ['Health'],
         'service_type': ['Dental'],
         'audience': 'Unhoused or Experiencing Homelessness',
@@ -757,8 +768,11 @@ service_list = {
                 'Wednesday 11:00am-3:30pm. Walk-ins and appointments '
                 'available.'
     },
-    'Care Beyond the Boulevard: Independence Blvd. Christian Church behavioral': {
-        'provider': 'Care Beyond the Boulevard: Independence Blvd. Christian Church',
+    'Care Beyond the Boulevard: Independence Blvd. Christian Church '
+    'behavioral':
+        {
+        'provider': 'Care Beyond the Boulevard: Independence Blvd. '
+                    'Christian Church',
         'category': ['Health'],
         'service_type': ['Behavioral Health'],
         'audience': 'Unhoused or Experiencing Homelessness',
@@ -766,7 +780,8 @@ service_list = {
         'start_time': '11:00:00',
         'end_time': '15:30:00',
         'period': 0,
-        'note': 'Behavioral health Thursday 11:00am-3:30pm. Walk-ins and appointments available.'
+        'note': 'Behavioral health Thursday 11:00am-3:30pm. Walk-ins '
+                'and appointments available.'
     },
     'HOPE FAITH HOMELESS ASSISTANCE CAMPUS Food Breakfast': {
         'provider': 'HOPE FAITH HOMELESS ASSISTANCE CAMPUS',
@@ -897,7 +912,17 @@ service_list = {
         'period': 0,
         'note': ''
     },
-    # 'Family Promise of the Northland Lunch': {} # Periodic, multiple days (1st, 3rd, 5th Thursday
+    # 'Family Promise of the Northland Lunch': {
+    #     'provider': 'Family Promise of the Northland',
+    #     'category': 'Food',
+    #     'service_type': 'Lunch',
+    #     'audience': 'Everyone',
+    #     'day': [3],
+    #     'start_time': '11:00:00',
+    #     'end_time': '11:30:00',
+    #     'period': [1, 3, 5],
+    #     'note': '',
+    # }, # Periodic, multiple days (1st, 3rd, 5th Thursday
     'Micah Ministries @ Independence Bvld. Christian Church': {
         'provider': 'Micah Ministries @ Independence Bvld. Christian Church',
         'category': ["Food", 'Hygiene', ],
@@ -932,7 +957,7 @@ service_list = {
         'note': '',
     },
     'Morning Glory Ministries M-F Breakfast': {
-        'provider': 'Morning Glory Ministries',
+        'provider': 'Morning Glory Ministries: 9th St.',
         'category': ["Food"],
         'service_type': ['Breakfast'],
         'audience': 'Everyone',
@@ -1078,7 +1103,7 @@ service_list = {
         'period': 0,
         'note': 'open to all',
     },
-    'TTLFRC: Emancipation Station Daily Breakfast': {
+    'TLFRC: Emancipation Station Daily Breakfast': {
         'provider': 'TLFRC: Emancipation Station',
         'category': ["Food", ],
         'service_type': ["Breakfast"],
@@ -1167,7 +1192,8 @@ service_list = {
         'note': 'Resource Drop-in Center, (sack lunches provided while supplies last)',
     },
     # HEALTH
-    'Care Beyond the Boulevard: Independence Blvd. Christian Church Health M': {
+    'Care Beyond the Boulevard: Independence Blvd. Christian '
+    'Church Health M': {
         'provider': 'Care Beyond the Boulevard: Independence Blvd. '
                     'Christian Church',
         'category': ["Health"],
@@ -1179,7 +1205,8 @@ service_list = {
         'period': 0,
         'note': '',
     },
-    'Care Beyond the Boulevard: Independence Blvd. Christian Church Health S': {
+    'Care Beyond the Boulevard: Independence Blvd. Christian '
+    'Church Health S': {
         'provider': 'Care Beyond the Boulevard: Independence Blvd. '
                     'Christian Church',
         'category': ["Health"],
@@ -1376,30 +1403,438 @@ service_list = {
         'note': 'HIV & AIDS services; free HIV/STI testing',
     },
     # GENERAL HELP
+    'Catholic Charities: Welcome Center': {
+        'provider': 'Catholic Charities: Welcome Center',
+        'category': ['General', 'Hygiene', 'Shelter'],
+        'service_type': ["General", "Diapers",
+                         'Toiletries', 'Rent Assistance',
+                         'Utility Assistance'],
+        'audience': ['Everyone',
+                     'Children and Teens/Families',
+                     "Women"],
+        'day': [0, 1, 2, 3,],
+        'start_time': '09:00:00',
+        'end_time': '15:30:00',
+        'period': 0,
+        'note': 'Basic Needs Assistance (food, diapers, hygiene): '
+                'Mon-Thurs 9:00am-3:30pm, closed 12-1pm for lunch. '
+                'Rent/utility assistance calls are taken on Mondays @ '
+                '8:30am. First come, first served'
+    },
+    'Central Presbyterian Church': {
+        'provider': 'Central Presbyterian Church',
+        'category': ["Food", 'Hygiene'],
+        'service_type': ['Clothes', 'Pantry', 'Toiletries'],
+        'audience': "Everyone",
+        'day': [2],
+        'start_time': '09:00:00',
+        'end_time': '11:00:00',
+        'period': 0,
+        'note': ''
+    },
+    'Community LINC': {
+        'provider': 'Community LINC',
+        'category': ["General", "Shelter"],
+        'service_type': ['General', 'Housing', 'Housing referral'],
+        'audience': ['Unhoused or Experiencing Homelessness',
+                     'Children and Teens/Families',],
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Street homeless Outreach navigators; Transitional '
+                'Housing for Families'
+    },
+    'Journey to New Life': {
+        'provider': 'Journey to New Life',
+        'category': ['General'],
+        'service_type': ['General', "Employment Services"],
+        'audience': 'Justice-Involved and Returning Citizens',
+        'day': [0, 1, 2, 3],
+        'start_time': '10:00:00',
+        'end_time': '16:00:00',
+        'period': 0,
+        'note': 'Assistance with basic needs & employment'
+    },
+    'Legal Aid of Western Missouri': {
+        'provider': 'Legal Aid of Western Missouri',
+        'category': ['General'],
+        'service_type': ['General - Legal'],
+        'audience': 'Everyone' ,
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Call or schedule an appointment online at lawmo.org'
+    },
+    'Metropolitan Lutheran Ministry General': {
+        'provider': 'Metropolitan Lutheran Ministry',
+        'category': ['General', 'Shelter', 'Food', 'Hygiene'],
+        'service_type': ['General', 'Rent Assistance',
+                         'Utility Assistance', 'Pantry', 'Diapers'],
+        'audience': "Everyone",
+        'day': [0, 1, 2, 3, 4],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': '(call for appointment) Rent, utilities, '
+                'birth certificates, food & diapers'
+    },
+    'Morning Glory Ministries: 12th St.': {
+        'provider': 'Morning Glory Ministries: 12th St.',
+        'category': ['General', 'Hygiene'],
+        'service_type': ['Clothes', 'Genera', 'Toiletries'],
+        'audience': 'Unhoused or Experiencing Homelessness',
+        'day': [1, 2, 3, 4,],
+        'start_time': '09:00:00',
+        'end_time': '11:00:00',
+        'period': 0,
+        'note': 'IDs/Records (with a homeless/shelter letter) Clothing '
+                '& toiletries (every 2 wks.)'
+    },
+    'Redemptorist Center General': {
+        'provider': 'Redemptorist Center',
+        'category': ['General', "Food", "Shelter"],
+        'service_type': ['Pantry', 'General', 'Rent Assistance',
+                         'General - Financial', 'Utility Assistance'],
+        'audience': 'Everyone',
+        'day': [0, 1, 2, 3, 4],
+        'start_time': '08:00:00',
+        'end_time': '16:00:00',
+        'period': 0,
+        'note': 'Mon-Fri 8:00am-4:00pm (office hours) \nMon-Thurs '
+                '10:00am-1:00pm (walk-in client hours)\nFood, '
+                'toiletries & financial assistance'
+    },
+    'Reconciliation Services M': {
+        'provider': 'Reconciliation Services',
+        'category': ['Health', 'General', 'Shelter'],
+        'service_type': ['Health',
+                         'Behavioral Health',
+                         'Prescriptions',
+                         'General',
+                         'Rent Assistance',
+                         'Utility Assistance', ],
+        'audience': "Everyone",
+        'day': [0],
+        'start_time': '10:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Health/medication, utilities, ID/birth certificates, '
+                'mental health services, therapy & case management'
+    },
+    'Reconciliation Services Tu-F': {
+        'provider': 'Reconciliation Services',
+        'category': ['Health', 'General', 'Shelter'],
+        'service_type': ['Health',
+                         'Behavioral Health',
+                         'Prescriptions',
+                         'General',
+                         'Rent Assistance',
+                         'Utility Assistance', ],
+        'audience': "Everyone",
+        'day': [1, 2, 3, 4,],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Health/medication, utilities, ID/birth certificates, '
+                'mental health services, therapy & case management'
+    },
+    'SAVE, Inc.': {
+        'provider': 'SAVE, Inc.',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': "Everyone",
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Housing assistance for individuals with HIV/AIDS, '
+                'substance abuse, and mental health illnesses'
+    },
+    'Second Chance': {
+        'provider': 'Second Chance',
+        'category': ["General"],
+        'service_type': ['General'],
+        'audience': 'Justice-Involved and Returning Citizens',
+        'day': [0, 1, 2, 3, 4, ],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': '(justice-involved, call for appointment)'
+    },
+    'St. Paul\'s Episcopal Church W': {
+        'provider': 'St. Paul\'s Episcopal Church',
+        'category': ['Food', 'Hygiene'],
+        'service_type': ['Pantry', 'Toiletries'],
+        'audience': "Everyone",
+        'day': [2],
+        'start_time': '17:30:00',
+        'end_time': '19:30:00',
+        'period': 0,
+        'note': '40th & Main (south side of church), Tuesdays '
+                'appointment only (call), Wed. 5:30-7:30pm, '
+                'Saturdays 9-11am except 3rd Sat. 10am-12pm, Food '
+                'pantry & personal care items'
+    },
+    # 'St. Paul\'s Episcopal Church not 3rd Sat':{
+    #     'provider': 'St. Paul\'s Episcopal Church',
+    #     'category': ['Food', 'Hygiene'],
+    #     'service_type': ['Pantry', 'Toiletries'],
+    #     'audience': "Everyone",
+    #     'day': [5],
+    #     'start_time': '09:00:00',
+    #     'end_time': '11:00:00',
+    #     'period': [1, 2, 4], # Saturdays 9-11am except 3rd Sat
+    #     'note': '40th & Main (south side of church), Tuesdays '
+    #             'appointment only (call), Wed. 5:30-7:30pm, '
+    #             'Saturdays 9-11am except 3rd Sat. 10am-12pm, Food '
+    #             'pantry & personal care items'
+    # },
+    # 'St. Paul\'s Episcopal Church 3rd Sat': {
+    #     'provider': 'St. Paul\'s Episcopal Church',
+    #     'category': ['Food', 'Hygiene'],
+    #     'service_type': ['Pantry', 'Toiletries'],
+    #     'audience': "Everyone",
+    #     'day': [5],
+    #     'start_time': '10:00:00',
+    #     'end_time': '12:00:00',
+    #     'period': [3],  # 3rd Sat. 10am-12pm
+    #     'note': '40th & Main (south side of church), Tuesdays '
+    #             'appointment only (call), Wed. 5:30-7:30pm, '
+    #             'Saturdays 9-11am except 3rd Sat. 10am-12pm, Food '
+    #             'pantry & personal care items'
+    # },
+    # 'Street Support KC': {
+    #     'provider': 'Street Support KC',
+    #     'category': ["General"],
+    #     'service_type': ["General"],
+    #     'audience': 'Unhoused or Experiencing Homelessness',
+    #     'day': [5],
+    #     'start_time': '09:00:00',
+    #     'end_time': '15:00:00',
+    #     'period': 1,
+    #     'note': '10th & Baltimore, 1st Saturday/month 9am, '
+    #             'Backpacks, sleeping bags, sack lunches, clothes etc.'
+    # },
+    'The Salvation Army General Morning': {
+        'provider': 'The Salvation Army',
+        'category': ["Shelter", "Food"],
+        'service_type': ['Pantry', 'Rent Assistance',
+                         'Utility Assistance'],
+        'audience': "Everyone",
+        'day': [0, 2, 4],
+        'start_time': '09:00:00',
+        'end_time': '12:00:00',
+        'period': 0,
+        'note': 'Rent, utilities assistance & food pantry'
+    },
+    'The Salvation Army General Afternoon': {
+        'provider': 'The Salvation Army',
+        'category': ["Shelter", "Food"],
+        'service_type': ['Pantry', 'Rent Assistance',
+                         'Utility Assistance'],
+        'audience': "Everyone",
+        'day': [0, 2, 4],
+        'start_time': '13:00:00',
+        'end_time': '14:30:00',
+        'period': 0,
+        'note': 'Rent, utilities assistance & food pantry'
+    },
+    'True Light Family Resource Center: 712 General Morning': {
+        'provider': 'True Light Family Resource Center: 712',
+        'category': ['Food', 'Hygiene', 'General'],
+        'service_type': ['Pantry', 'General',
+                         'Toiletries', 'Diapers', ],
+        'audience': "Everyone",
+        'day': [0, 1, 2, 3, 4],
+        'start_time': '10:00:00',
+        'end_time': '12:00:00',
+        'period': 0,
+        'note': 'Emergency food, diapers & toiletries, clothes, '
+                'furniture'
+    },
+    'True Light Family Resource Center: 712 General Afternoon': {
+        'provider': 'True Light Family Resource Center: 712',
+        'category': ['Food', 'Hygiene', 'General'],
+        'service_type': ['Pantry', 'General',
+                         'Toiletries', 'Diapers', ],
+        'audience': "Everyone",
+        'day': [0, 1, 2, 3, ],
+        'start_time': '13:00:00',
+        'end_time': '15:00:00',
+        'period': 0,
+        'note': 'Emergency food, diapers & toiletries, clothes, '
+                'furniture'
+    },
+    'True Light Family Resource Center: 712 water': {
+        'provider': 'True Light Family Resource Center: 712',
+        'category': ['Shelter'],
+        'service_type': ['Utility Assistance', ],
+        'audience': "Everyone",
+        'day': [0, 1, 2, 3, 4],
+        'start_time': '10:00:00',
+        'end_time': '15:00:00',
+        'period': 0,
+        'note': '(by appointment for water assistance)'
+    },
+    # SHELTER
+    'City Union Mission Family Center': {
+        'provider': 'City Union Mission Family Center',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Children and Teens/Families',
+                     'Unhoused or Experiencing Homelessness',],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'call for availability'
+    },
+    'City Union Mission Men\'s Shelter': {
+        'provider': 'City Union Mission Men\'s Shelter',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Unhoused or Experiencing Homelessness', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'call for availability'
+    },
+    'Hope House': {
+        'provider': 'Hope House',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Women', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'domestic violence'
+    },
+    'Newhouse': {
+        'provider': 'Newhouse',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Women', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'domestic violence'
+    },
+    'ReHope': {
+        'provider': 'ReHope',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Women','Unhoused or Experiencing Homelessness', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Residential program for women recovering from '
+                'commercial sexual exploitation, addiction, and '
+                'homelessness.'
+    },
+    'reStart, Inc.': {
+        'provider': 'reStart, Inc.',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Unhoused or Experiencing Homelessness', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'call for appt'
+    },
+    'Relentless Pursuit Outreach & Recovery Drop-In Center': {
+        'provider': 'Relentless Pursuit Outreach & Recovery Drop-In Center',
+        'category': ["General", 'Shelter'],
+        'service_type': ['General', 'General - Legal', 'Housing'],
+        'audience': "Women",
+        'day': [1, 2, 4, 5],
+        'start_time': '11:00:00',
+        'end_time': '16:00:00',
+        'period': 0,
+        'note': '24/7 Hotline - Anti-human trafficking (women only)'
+    },
+    'Rose Brooks Center': {
+        'provider': 'Rose Brooks Center',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Women', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'domestic violence'
+    },
+    'Shelter KC': {
+        'provider': 'Shelter KC',
+        'category': ["Health", 'Shelter'],
+        'service_type': ['Drug Treatment', 'Housing'],
+        'audience': 'Unhoused or Experiencing Homelessness',
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Intake 9:00am-3:00pm daily; check in 3:30pm-5:00pm\n'
+                'Men\'s shelter & recovery center, 4:30pm "Taste & See"'
+    },
+    'Shelter KC Women\'s Center': {
+        'provider': 'Shelter KC Women\'s Center',
+        'category': ["Health", 'Shelter'],
+        'service_type': ['Drug Treatment', 'Housing'],
+        'audience': ['Unhoused or Experiencing Homelessness', 'Women'],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Residential recovery for single homeless women'
+    },
+    'Synergy Services': {
+        'provider': 'Synergy Services',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ['Women', ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Domestic Violence Center'
+    },
+    'Teresa\'s Place': {
+        'provider': 'Teresa\'s Place',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': ["LGBTQIA", ],
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'Low barrier shelter for LGBTQ+ young adults (18-24)'
+    },
+    'The Salvation Army Adult Rehabilitation Center': {
+        'provider':  'The Salvation Army Adult Rehabilitation Center',
+        'category': ['Health','Shelter' ],
+        'service_type': ['Housing', 'Drug Treatment'],
+        'audience': "Everyone",
+        'day': [0, 1, 2, 3, 4, 5, 6],
+        'start_time': '09:00:00',
+        'end_time': '17:00:00',
+        'period': 0,
+        'note': 'call for intake'
+    },
+    'TLFRC: Emancipation Station Womens Shelter': {
+        'provider': 'TLFRC: Emancipation Station',
+        'category': ['Shelter'],
+        'service_type': ['Housing'],
+        'audience': "Women",
+        'day': [0, 1, 2, 3, 4,],
+        'start_time': '08:30:00',
+        'end_time': '15:00:00',
+        'period': 0,
+        'note': 'day shelter for women'
+    }
 }
-        # 'provider': ,
-        # 'category': [],
-        # 'service_type': [],
-        # 'audience': ,
-        # 'day': [],
-        # 'start_time': '',
-        # 'end_time': '',
-        # 'period': 0,
-        # 'note': ''
-
-        # "Food": ['Breakfast', 'Lunch', 'Dinner', 'Pantry', ],
-        # 'Health': ['Health', 'Behavioral Health', 'Dental', 'Prescriptions', 'Vision', 'Pediatrics', 'OB/GYN',
-        #        'Drug Treatment', ],
-        # 'General': ['General', 'General - Legal', 'General - Financial',"Employment Services" ],
-        # 'Shelter': ['Housing', 'Housing referral', 'Rent Assistance', 'Utility Assistance', ],
-        # 'Hygiene': ['Clothes', 'Showers', 'Toiletries', 'Diapers', 'Laundry', "Grooming" ],
-        # }
-# all_audiences = [
-#             'Everyone',
-#             'Children and Teens/Families',
-#             'Military Service Members and Veterans',
-#             'Justice-Involved and Returning Citizens',
-#             "LGBTQIA",
-#             'Unhoused or Experiencing Homelessness',
-#             "Women",
-#         ]

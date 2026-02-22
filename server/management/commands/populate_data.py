@@ -13,7 +13,7 @@ import server
 def populate_providers():
     # Provider = apps.get_model('server', 'Provider')
     provider_data = server.event_info.all_providers
-    for provider, info in provider_data.items:
+    for provider, info in provider_data.items():
         server.helpers.insert_new_provider(
             name=provider,
             address=info[0],
