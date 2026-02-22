@@ -8,35 +8,39 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from server import helpers
-from server.models import Event
+from server.models import Event, ServiceType
+
 
 # Create your views here.
 
 def main_data(request):
+    # 1. Pre-fetch the category mapping ONCE
+    category_map = {
+        st.type: st.category.category
+        for st in ServiceType.objects.select_related('category').all()
+    }
+
+    # 2. Optimize the main QuerySet
+    # We must prefetch the specific fields used in event_data_packer
     data = Event.objects.select_related(
         'service_id__provider'
     ).prefetch_related(
-        # 'service_id__category',
         'service_id__type',
         'service_id__audience'
     ).all()
 
-    json_data = {'services': {}}
+    # 3. Build the response
+    services_dict = {}
     for entry in data:
-        # Using entry.id as a key is fine, but GSON usually prefers an
-        # Array [] of objects rather than a Dictionary {} of objects
-        # for lists.
-        json_data['services'][entry.id] = (
-            helpers.event_data_packer(entry))
+        # Pass the pre-computed map into the helper
+        services_dict[entry.id] = helpers.event_data_packer(entry,
+                                                            category_map)
 
-    # include all Category and Type information
-    json_data.setdefault(
-        'categories/types', helpers.get_all_categories_types())
-
-    # include all Audiences
-    json_data.setdefault(
-        'audiences', helpers.get_all_audiences()
-    )
+    json_data = {
+        'services': services_dict,
+        'categories/types': helpers.get_all_categories_types(),
+        'audiences': helpers.get_all_audiences()
+    }
 
     return JsonResponse(json_data)
 

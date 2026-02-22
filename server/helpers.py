@@ -43,30 +43,26 @@ def get_service_target_audience(event_query_set_obj):
     return event_query_set_obj.service_id.audience
 
 
-def event_data_packer(entry):
+def event_data_packer(entry, category_info):
     """
     Helper function for views.py, takes a models.Event object, returning
     JSON-friendly packaged data
     """
-    service = entry.service_id  # Cache this to save typing
-    category_info = {x.type: x.category.category for x in
-                     ServiceType.objects.all()}
+    service = entry.service_id
+
+    # These .all() calls will now hit the PREFETCH cache
+    # instead of the database, provided the View is set up right.
+    service_types = service.type.all()
 
     return {
         'provider_name': service.provider.name,
         'address': service.provider.address,
         'phone': service.provider.phone,
         'email': service.provider.email,
-
-        # We transform the Many-to-Many managers into lists of strings
-        'service_category':
-            list({category_info[x] for x in
-                  service.type.values_list('type', flat=True)}),
-        'service_type': list(
-            service.type.values_list('type', flat=True)),
-        'audience': list(
-            service.audience.values_list('audience', flat=True)),
-
+        'service_category': list(
+            {category_info.get(x.type) for x in service_types}),
+        'service_type': [x.type for x in service_types],
+        'audience': [x.audience for x in service.audience.all()],
         'start_time': entry.date.strftime('%Y-%m-%d %H:%M:%S'),
         'end_time': entry.end.strftime('%Y-%m-%d %H:%M:%S'),
         'notes': service.note,
@@ -346,13 +342,21 @@ def get_all_categories_types():
     types, schema {category: [type(s)]}.
     """
     data = {}
-    for service_type in ServiceType.objects.all():
-        category = service_type.category.category
-        data.setdefault(category,[])
-        data[category].append(service_type.type)
+    # select_related('category') performs a SQL JOIN to get names in one hit
+    # values_list avoids instantiating full Model objects
+    queryset = ServiceType.objects.select_related(
+        'category').values_list(
+        'category__category', 'type'
+    )
+
+    for category_name, type_name in queryset:
+        data.setdefault(category_name, []).append(type_name)
     return data
 
 def get_all_audiences():
     """Returns an array of all audience types."""
-    return list({x.audience for x in Audience.objects.all()})
+    # .distinct() ensures the DB only sends unique values
+    # flat=True returns a list of strings instead of a list of tuples
+    return list(
+        Audience.objects.values_list('audience', flat=True).distinct())
 
