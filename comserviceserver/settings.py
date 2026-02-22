@@ -33,7 +33,7 @@ if DEBUG:
                      ]
 else:
     ALLOWED_HOSTS = [
-
+        'communityservicesserver.onrender.com',
     ]
 
 # Application definition
