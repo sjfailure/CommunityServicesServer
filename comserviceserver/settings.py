@@ -1,5 +1,8 @@
 import os
+import ast
 from pathlib import Path
+
+from django.conf.global_settings import ALLOWED_HOSTS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,12 +20,21 @@ OAuth added to app dependencies, routing configured, redirects and Admin portal 
 SECRET_KEY = os.environ.get('community_services_server_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+"""
+"True" for DEBUG = True (not in production)
+"False" for DEBUG = False (IN production)
+"""
+DEBUG = ast.literal_eval(
+    os.environ.get("community_server_debug_or_prod")
+)
+if DEBUG:
+    ALLOWED_HOSTS = ['10.0.2.2',
+                     '127.0.0.1',
+                     ]
+else:
+    ALLOWED_HOSTS = [
 
-ALLOWED_HOSTS = ['10.0.2.2',
-                 '127.0.0.1',
-                 ]
-
+    ]
 
 # Application definition
 
@@ -80,23 +92,30 @@ WSGI_APPLICATION = 'comserviceserver.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'defaultdb',
-    #     'USER': os.environ.get('community_services_server_USER'),
-    #     'PASSWORD': os.environ.get('community_services_server_PASSWORD'),
-    #     'HOST': os.environ.get('community_services_server_HOST'),
-    #     'PORT': '13106',
-    #     'OPTIONS': {
-    #         'ssl': {
-    #             'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
-    #         },
-    #     },
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'defaultdb',
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'defaultdb',
+        },
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'defaultdb',
+            'USER': os.environ.get('community_services_server_USER'),
+            'PASSWORD': os.environ.get('community_services_server_PASSWORD'),
+            'HOST': os.environ.get('community_services_server_HOST'),
+            'PORT': '13106',
+            'OPTIONS': {
+                    'ssl': {
+                        'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
+                },
+            },
+        }
+    }
+
 
 
 # Password validation
@@ -134,13 +153,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import os
 
 LOGGING = {
     'version': 1,

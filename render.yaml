@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: server
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn your_project_name.wsgi:application"
+    env:
+      - type: string
+        key: DJANGO_SETTINGS_MODULE
+        value: "your_project_name.settings"
