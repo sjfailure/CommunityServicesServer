@@ -20,7 +20,7 @@ class ServiceType(models.Model):
 
 class Provider(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.TextField(default='No Provider', null=False)
+    name = models.CharField(max_length=255, default='No Provider', null=False)  # Change done here
     address = models.TextField(null=True)
     phone = models.TextField(null=True)
     email = models.TextField(null=True)
