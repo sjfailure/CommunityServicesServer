@@ -13,6 +13,7 @@ def populate_days(apps, schema_editor):
     ]
     for idx, name in days_to_create:
         Day.objects.get_or_create(id=idx)
+
 class Migration(migrations.Migration):
 
     initial = True
