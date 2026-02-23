@@ -110,7 +110,7 @@ else:
             'PORT': '13106',
             'OPTIONS': {
                     'ssl': {
-                        'ca': str(BASE_DIR) + 'ca.pem',  # Path to your SSL certificate if required
+                        'ca': '/etc/secrets/ca.pem',  # Path to your SSL certificate if required
                 },
             },
         }
