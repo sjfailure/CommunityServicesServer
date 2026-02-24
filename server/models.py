@@ -8,7 +8,7 @@ from django.db import models, transaction
 
 class ServiceCategory(models.Model):
     id = models.AutoField(primary_key=True)
-    category = models.TextField(null=False)
+    category = models.CharField(max_length=255, null=False)
 
 class ServiceType(models.Model):
     id = models.AutoField(primary_key=True)
@@ -21,16 +21,16 @@ class ServiceType(models.Model):
 class Provider(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, default='No Provider', null=False)  # Change done here
-    address = models.TextField(null=True)
-    phone = models.TextField(null=True)
-    email = models.TextField(null=True)
+    address = models.CharField(max_length=255, null=True)
+    phone = models.CharField(max_length=255, null=True)
+    email = models.CharField(max_length=255, null=True)
 
     class Meta:
         unique_together = (('name', 'address'),)
 
 class Audience(models.Model):
     id = models.AutoField(primary_key=True)
-    audience = models.TextField(null=False)
+    audience = models.CharField(max_length=255, null=False)
 
 class Day(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -114,7 +114,7 @@ class Service(models.Model):
     periodic = models.IntegerField(default=0) # Special field for
     # events that occur periodically,i.e. every 3rd Sat., int
     # indicates nth day of the month
-    note = models.TextField(default='', null=True)
+    note = models.CharField(max_length=255, default='', null=True)
     objects = ServiceManager()
 
     class Meta:
