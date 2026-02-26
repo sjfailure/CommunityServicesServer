@@ -1001,7 +1001,7 @@ service_list = {
         'service_type': ['Breakfast',],
         'audience': 'Everyone',
         'day': [0, 1, 2, 3, 4],
-        'start_time': '9:00:00',
+        'start_time': '09:00:00',
         'end_time': '10:30:00',
         'period': 0,
         'note': 'Open Mon-Fri 9am-12pm, Hygiene items Wed. 10-11am, '

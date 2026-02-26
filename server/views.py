@@ -1,3 +1,4 @@
+import datetime
 import time
 from http.client import HTTPResponse
 
@@ -51,5 +52,6 @@ def detail_view(request, event_id):
     return JsonResponse(event_data)
 
 def database_update(request):
+    record_start = datetime.datetime.now()
     helpers.update_event_table()
-    return HttpResponse('done')
+    return HttpResponse(f'done : {datetime.datetime.now() - record_start} seconds')

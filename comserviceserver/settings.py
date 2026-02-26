@@ -28,12 +28,14 @@ DEBUG = ast.literal_eval(
     os.environ.get("community_server_debug_or_prod")
 )
 if DEBUG:
-    ALLOWED_HOSTS = ['10.0.2.2',
-                     '127.0.0.1',
-                     ]
+    ALLOWED_HOSTS = [
+        '10.0.2.2',
+        '127.0.0.1',
+    ]
 else:
     ALLOWED_HOSTS = [
         'communityservicesserver.onrender.com',
+        '127.0.0.1'
     ]
 
 # Application definition

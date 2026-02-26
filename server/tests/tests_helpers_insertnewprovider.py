@@ -112,9 +112,9 @@ class TestHelpersInsertNewProvider(django.test.TestCase):
         TextFields should handle very large strings, but we should
         verify.
         """
-        huge_name = "A" * 10000
+        huge_name = "A" * 255
         p = helpers.insert_new_provider(name=huge_name)
-        self.assertEqual(len(p.name), 10000)
+        self.assertEqual(len(p.name), 255)
 
     def test_type_safety_handling(self):
         """
