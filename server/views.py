@@ -4,12 +4,13 @@ from http.client import HTTPResponse
 
 import django.http
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.functions import JSONObject
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from server import helpers
-from server.models import Event, ServiceType
+from server.models import Event, ServiceType, Announcement
 
 
 # Create your views here.
@@ -40,8 +41,14 @@ def main_data(request):
     json_data = {
         'services': services_dict,
         'categories/types': helpers.get_all_categories_types(),
-        'audiences': helpers.get_all_audiences()
+        'audiences': helpers.get_all_audiences(),
+        'announcement': None  # Default value
     }
+
+    try:
+        json_data['announcement'] = Announcement.objects.latest('date')
+    except ObjectDoesNotExist:
+        pass  # Keep announcement as None
 
     return JsonResponse(json_data)
 
@@ -55,3 +62,6 @@ def database_update(request):
     record_start = datetime.datetime.now()
     helpers.update_event_table()
     return HttpResponse(f'done : {datetime.datetime.now() - record_start} seconds')
+
+def provider_contact_list(request):
+    return JsonResponse(helpers.get_all_provideers_json_format())

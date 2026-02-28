@@ -577,3 +577,14 @@ def get_all_audiences():
     return list(
         Audience.objects.values_list('audience', flat=True).distinct())
 
+def get_all_provideers_json_format():
+    data = {}
+    providers = Provider.objects.all()
+
+    for provider in providers:
+        data.setdefault(provider.id, {})
+        data[provider.id].setdefault('name', provider.name)
+        data[provider.id].setdefault('phone', provider.phone)
+        data[provider.id].setdefault('email', provider.email)
+
+    return data

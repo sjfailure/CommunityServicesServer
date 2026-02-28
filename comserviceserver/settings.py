@@ -35,7 +35,8 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = [
         'communityservicesserver.onrender.com',
-        '127.0.0.1'
+        # '127.0.0.1',
+        # '10.0.2.2',
     ]
 
 # Application definition

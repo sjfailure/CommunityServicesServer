@@ -144,3 +144,7 @@ class Event(models.Model):
 class Update(models.Model):
     last_update = models.DateTimeField(default=datetime.date(
         1900,1,1))
+
+class Announcement(models.Model):
+    announcement = models.CharField(max_length=255)
+    date = models.DateField(null=False)
