@@ -46,7 +46,8 @@ def main_data(request):
     }
 
     try:
-        json_data['announcement'] = Announcement.objects.latest('date')
+        json_data['announcement'] = (Announcement.objects.latest('date')
+                                     .annoucement)
     except ObjectDoesNotExist:
         pass  # Keep announcement as None
 
