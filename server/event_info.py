@@ -364,6 +364,28 @@ all_providers = {
         '816-505-4840',
         None,
     ],
+    ### CONTACT ONLY SERVICES
+    'Housing Authority of KC': [
+        '3822 Summit St.',
+        '816-968-4100',
+        None
+    ],
+    'Alcoholics Anonymous': [None, '1-800-839-1686', None],
+    'Children\'s Center Hotline': [None, '816-321-7060', None],
+    'Cold Weather Shelter': [None, '816-513-3699', None],
+    'Domestic Violence': [None, '816-468-5463', None],
+    'First Call (Substance Abuse)': [None, '816-361-5900', None],
+    'Harvester/SNAP': [None, '816-929-3300', None],
+    'Hotline for the Homeless': [None, '816-474-4599', None],
+    'Mental Health Crisis Line': [None, '1-888-279-8188', None],
+    'National Runaway Safeline': [None, '1-800-786-2929', None],
+    'National Human Trafficking': [None, '1-888-373-7888', None],
+    'Rape/Sexual Abuse': [None, '816-531-0233', None],
+    'Rape/Sexual Abuse (KS)': [None, '913-642-0233', None],
+    'Safe Place (Ages 12-18) Text': [None, '4HELP', None],
+    'Suicide and Crisis Lifeline': [None, '988', None],
+    'Transgender Helpline': [None, '877-565-8860', None],
+    'United Way': [None, '211', None],
 }
 
 
