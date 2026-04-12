@@ -3,16 +3,18 @@ Respository of helper functions for server app.
 """
 import datetime
 import logging
+import secrets
 from warnings import deprecated
 
+from django.template.backends import django
 from django.utils import timezone
 from django.core.exceptions import MultipleObjectsReturned
 from django.db import IntegrityError, transaction, models
 import pytz
 
 from server import event_info
-from server.models import Event, Provider, ServiceCategory, ServiceType, \
-    Audience, Service, Day, Update
+from server.models import Event, Provider, ServiceCategory, \
+    ServiceType, Audience, Service, Day, Update, Feedback, UserKey
 
 
 def get_all_entries():
@@ -232,6 +234,11 @@ def purge_old_events():
     passed.
     """
     Event.objects.filter(end__lt=timezone.now()).delete()
+    UserKey.objects.filter(
+        created__lt=timezone.now() - \
+                    datetime.timedelta(minutes=30)
+    ).delete()
+
 
 
 # def update_event_table():
@@ -350,7 +357,9 @@ def update_event_table(deep=False):
         latest_event_map = {
             item['service_id']: item['latest'].date()
             for item in
-            Event.objects.values('service_id').annotate(latest=Max('date'))
+            Event.objects.values('service_id').annotate(
+                latest=Max('date')
+            )
             if item['latest']
         }
 
@@ -360,8 +369,10 @@ def update_event_table(deep=False):
         new_events = []
         batch_size = 500
 
-        # 4. Process services. Use .iterator() to keep memory usage low on Render.
-        services = Service.objects.prefetch_related('day').all().iterator(
+        # 4. Process services. Use .iterator() to keep memory usage
+        # low on Render.
+        services = Service.objects.prefetch_related(
+            'day').all().iterator(
             chunk_size=1000)
 
         for service in services:
@@ -577,7 +588,7 @@ def get_all_audiences():
     return list(
         Audience.objects.values_list('audience', flat=True).distinct())
 
-def get_all_provideers_json_format():
+def get_all_providers_json_format():
     data = {}
     providers = Provider.objects.all()
 
@@ -588,3 +599,54 @@ def get_all_provideers_json_format():
         data[provider.id].setdefault('email', provider.email)
 
     return data
+
+def insert_new_feedback(
+        message,
+        os_data=None,
+        device_data=None,
+        user_key=None
+):
+    if user_key is None:
+        return
+    if not check_key(user_key):
+        return
+    if not isinstance(message, str):
+        raise ValueError("message must be a string")
+    if os_data is not None and not isinstance(os_data, str):
+        raise ValueError("os_data must be a string")
+    if device_data is not None and not isinstance(device_data, str):
+        raise ValueError("device_data must be a string")
+    if len(message) > 2000:
+        message = message[:2000]
+    if os_data is None:
+        os_data = ''
+    elif len(os_data) > 255:
+        os_data = os_data[:255]
+    if device_data is None:
+        device_data = ''
+    elif len(device_data) > 255:
+        device_data = device_data[:255]
+    x = Feedback(
+        message=message,
+        os_data=os_data,
+        device_data=device_data
+    )
+    x.save()
+
+def get_feedback_key():
+    x = secrets.token_hex(32)
+    key = UserKey.objects.create(
+        key=x,
+        created=timezone.now()
+    )
+    return x
+
+def check_key(key):
+    try:
+        UserKey.objects.get(key=key)
+        return True
+    except:
+        return False
+
+# TODO add solutions to detect compromised feedback keys and eliminate them
+# TODO add counter for user key usage, delete is misuse detected

@@ -15,5 +15,8 @@ urlpatterns = [
          name='database_update'),
     path('providers',
          views.provider_contact_list,
-         name='provider_contact_list')
+         name='provider_contact_list'),
+    path('feedback/',
+         views.receive_feedback,
+         name='submit_feedback'),
 ]

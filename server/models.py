@@ -148,3 +148,12 @@ class Update(models.Model):
 class Announcement(models.Model):
     announcement = models.CharField(max_length=255)
     date = models.DateField(null=False)
+
+class Feedback(models.Model):
+    message = models.CharField(max_length=2000)
+    os_data = models.CharField(max_length=255, default='')
+    device_data = models.CharField(max_length=255, default='')
+
+class UserKey(models.Model):
+    key = models.CharField(max_length=64)
+    created = models.DateTimeField()
