@@ -1,5 +1,6 @@
 # KC Connect - REST API Server
 
+
 This is the backend engine for the KC Connect ecosystem. It provides a structured, scalable API that serves community service data to mobile and web clients.
 
 ## ⚙️ Tech Stack
